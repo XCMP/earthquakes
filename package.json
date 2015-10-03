@@ -1,0 +1,12 @@
+{
+  "name": "earthquakes-app",
+  "version": "1.0.0",
+  "description": "Earthquakes around Europe",
+  "main": "earthquakes-app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "XCMP",
+  "license": "ISC",
+  "devDependencies": {}
+}

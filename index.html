@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Aardbevingen in Europa</title>
+  <!-- DEV -->
+  <script src="http://localhost:35729/livereload.js"></script>
+  
+  <script src="http://underscorejs.org/underscore.js"></script>  
+  <script src="http://maps.googleapis.com/maps/api/js"></script>
+  <script src="dist/libs.js"></script>
+  <script src="dist/hbs-templates.js"></script>
+  <!-- <script src="dist/earthquakes-app.min.js"></script> -->
+  <script src="dist/earthquakes-app.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="dist/earthquakes-app.css">
+</head>
+<body>
+  <div id="main">
+    <div id="eq-actions" class="actions">
+      <div class="buttons-container">
+        <button class="showAllMarkers" data-switch="on">Show all</button>
+        <button class="hideAllMarkers" data-switch="off">Hide all</button>
+      </div>
+      <div class="search-container">
+        <input type="text" size="60" /> <button class="search">Search</button>
+      </div>
+    </div>
+    <div id="eq-list" class="earthquakes">
+      <h3>Loading...</h3>
+    </div>
+    <div class="map-fixed">
+      <div id="eq-map" class="map">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
