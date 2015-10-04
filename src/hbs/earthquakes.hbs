@@ -1,5 +1,5 @@
 {{#each earthQuakes}}
-  <div class="earthquake-data space-bottom-medium">
+  <div id="{{id}}" class="earthquake-data space-bottom-medium">
     <span>
       {{#with properties}}
         <h3>{{title}} [{{../id}}]</h3>
@@ -7,14 +7,16 @@
           <tr><td>Date / time</td><td>{{time}}</td></tr>
           <tr><td>Mangitude</td><td>{{mag}}</td></tr>
           <tr><td>Place</td><td>{{place}}</td></tr>
-            <tr><td>Location</td><td>
+          <tr><td>Location</td><td>
             {{#with ../geometry}}
               longitude: {{coordinates.[0]}}<br />
               latitude: {{coordinates.[1]}}<br />
               depth: {{coordinates.[2]}}<br />
-              <a href="#" class="toggleMarker" data-eq-id="{{../../id}}">Show marker</a>
             {{/with}}
-            </td></tr>
+          </td></tr>
+          <tr><td></td><td>
+            <button class="toggleMarker" data-eq-id="{{../id}}">Show on map</button>
+          </td></tr>
         </table>
       {{/with}}
     </span>

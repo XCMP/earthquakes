@@ -39,6 +39,10 @@ var MapView = Backbone.View.extend({
     })
   },
 
+  scrollToSelectedEarthquakeEvent: function(selectedEqId) {
+    eventBus.trigger("scrollToSelectedEarthquake", selectedEqId);
+  },
+
   initMarkers: function() {
     this.allMarkers = [];
     var self = this;
@@ -47,6 +51,9 @@ var MapView = Backbone.View.extend({
         position: modelMarker,
         id: modelMarker.id,
         map: null
+      });
+      marker.addListener('click', function() {
+        self.scrollToSelectedEarthquakeEvent(marker.id);
       });
       self.allMarkers.push(marker);
     });
