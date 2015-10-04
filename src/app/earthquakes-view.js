@@ -17,8 +17,9 @@ var EarthQuakesView = Backbone.View.extend({
   },
 
   toggleMarker: function(event) {
-    var selectedEqId = $(event.currentTarget).data('eq-id');
-
+    var $el = $(event.currentTarget);
+    var selectedEqId = $el.data('eq-id');
+    $('#'+selectedEqId).removeClass('eq-selected');
     eventBus.trigger("toggleMarker", selectedEqId);
   },
 
