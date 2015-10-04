@@ -18,11 +18,11 @@ var EarthQuakesView = Backbone.View.extend({
 
   toggleMarker: function(event) {
     var selectedEqId = $(event.currentTarget).data('eq-id');
+
     eventBus.trigger("toggleMarker", selectedEqId);
   },
 
   scrollToSelectedEarthquake: function(eqId) {
-    console.log('scroll to: ' + eqId);
     var $el = $("#"+eqId);
     $('body').animate({
         scrollTop: $el.offset().top - 3
