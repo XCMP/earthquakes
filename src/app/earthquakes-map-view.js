@@ -22,14 +22,8 @@ var MapView = Backbone.View.extend({
   },
 
   toggleMarker: function(selectedEqId) {
-    var selectedMarker = _.find(this.allMarkers, function(eq) {
-      return eq.id === selectedEqId;
-    });
-
-    this.clearSelectedMarkers();
-    selectedMarker.setMap(this.map);
-    selectedMarker.setIcon(this.selectedPinImage);
-    selectedMarker.selected = true;
+    var selectedMarker = this.getSelectedMarker(selectedEqId);
+    this.setSelectedMarker(selectedMarker);
     this.map.setCenter(selectedMarker.position);
   },
 
@@ -44,13 +38,8 @@ var MapView = Backbone.View.extend({
   },
 
   scrollToSelectedEarthquakeEvent: function(selectedEqId) {
-    this.clearSelectedMarkers();
-    var selectedMarker = _.find(this.allMarkers, function(eq) {
-      return eq.id === selectedEqId;
-    });
-    selectedMarker.setIcon(this.selectedPinImage);
-    selectedMarker.selected = true;
-
+    var selectedMarker = this.getSelectedMarker(selectedEqId);
+    this.setSelectedMarker(selectedMarker);
     eventBus.trigger("scrollToSelectedEarthquake", selectedEqId);
   },
 
@@ -62,6 +51,19 @@ var MapView = Backbone.View.extend({
       }
     });
 
+  },
+
+  getSelectedMarker: function(selectedEqId) {
+    return _.find(this.allMarkers, function(eq) {
+      return eq.id === selectedEqId;
+    });
+  },
+
+  setSelectedMarker: function(selectedMarker) {
+    this.clearSelectedMarkers();
+    selectedMarker.setMap(this.map);
+    selectedMarker.setIcon(this.selectedPinImage);
+    selectedMarker.selected = true;
   },
 
   initMarkers: function() {
