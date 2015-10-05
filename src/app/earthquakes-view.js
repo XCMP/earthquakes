@@ -19,8 +19,9 @@ var EarthQuakesView = Backbone.View.extend({
   toggleMarker: function(event) {
     var $el = $(event.currentTarget);
     var selectedEqId = $el.data('eq-id');
-    $('#'+selectedEqId).removeClass('eq-selected');
-    eventBus.trigger("toggleMarker", selectedEqId);
+    this.clearSelected();
+    $('#'+selectedEqId).addClass('eq-selected');
+    eventBus.trigger('toggleMarker', selectedEqId);
   },
 
   scrollToSelectedEarthquake: function(eqId) {
@@ -28,8 +29,12 @@ var EarthQuakesView = Backbone.View.extend({
     $('body').animate({
         scrollTop: $el.offset().top - 3
       }, 'slow');
-    $('#eq-list>div').removeClass('eq-selected');
+    this.clearSelected();
     $el.addClass('eq-selected');
+  },
+
+  clearSelected: function() {
+    $('#eq-list>div').removeClass('eq-selected');
   },
 
   render: function() {

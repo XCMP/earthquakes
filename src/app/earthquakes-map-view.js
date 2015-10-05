@@ -8,6 +8,8 @@ var MapView = Backbone.View.extend({
   },
   map: null,
   allMarkers: [],
+  defaultPinImage: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+  selectedPinImage: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
 
   initialize: function() {
     this.collection.on('sync', this.initMarkers, this);
@@ -24,9 +26,11 @@ var MapView = Backbone.View.extend({
       return eq.id === selectedEqId;
     });
 
-    selectedMarker.setMap(
-      selectedMarker.getMap() === null ? this.map : null
-    );
+    this.clearSelectedMarkers();
+    selectedMarker.setMap(this.map);
+    selectedMarker.setIcon(this.selectedPinImage);
+    selectedMarker.selected = true;
+    this.map.setCenter(selectedMarker.position);
   },
 
   toggleAllMarkers: function(showMarkers) {
@@ -40,7 +44,24 @@ var MapView = Backbone.View.extend({
   },
 
   scrollToSelectedEarthquakeEvent: function(selectedEqId) {
+    this.clearSelectedMarkers();
+    var selectedMarker = _.find(this.allMarkers, function(eq) {
+      return eq.id === selectedEqId;
+    });
+    selectedMarker.setIcon(this.selectedPinImage);
+    selectedMarker.selected = true;
+
     eventBus.trigger("scrollToSelectedEarthquake", selectedEqId);
+  },
+
+  clearSelectedMarkers: function() {
+    _.each(this.allMarkers, function(marker) {
+      if (marker.selected) {
+        marker.setIcon(this.defaultPinImage);
+        marker.selected = false;
+      }
+    });
+
   },
 
   initMarkers: function() {
@@ -50,7 +71,9 @@ var MapView = Backbone.View.extend({
       var marker = new google.maps.Marker({
         position: modelMarker,
         id: modelMarker.id,
-        map: null
+        map: null,
+        icon: this.defaultPinImage,
+        selected: false
       });
       marker.addListener('click', function() {
         self.scrollToSelectedEarthquakeEvent(marker.id);
