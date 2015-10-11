@@ -2,14 +2,14 @@ var eventBus = _.extend({}, Backbone.Events);
 
 $(document).ready(function() {
 
-  var earthQuakes = new EarthQuakes();
+  var earthquakes = new EarthQuakes();
 
   var earthQuakesView = new EarthQuakesView({
-    collection: earthQuakes
+    collection: earthquakes
   });
 
   var mapView = new MapView({
-    collection: earthQuakes
+    collection: earthquakes
   });
 
   var buttonsView = new ButtonsView({

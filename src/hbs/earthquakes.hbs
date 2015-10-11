@@ -1,8 +1,10 @@
-{{#each earthQuakes}}
+number of earthquakes {{filtered}}/{{total}}
+{{#each earthquakes}}
   <div id="{{id}}" class="earthquake-data space-bottom-medium">
     <span>
       {{#with properties}}
-        <h3>{{title}} [{{../id}}]</h3>
+        <h3>{{title}}</h3>
+        <h4>[{{../id}}]</h4>
         <table>
           <tr><td>Date / time</td><td>{{time}}</td></tr>
           <tr><td>Mangitude</td><td>{{mag}}</td></tr>

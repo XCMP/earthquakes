@@ -4,16 +4,23 @@ var EarthQuakesView = Backbone.View.extend({
 
   template: Handlebars.templates['earthquakes.hbs'],
 
+  filteredCollection: null,
+
   events : {
     'click button.toggleMarker' : 'toggleMarker'
    },
 
   initialize: function(){
     eventBus.on('scrollToSelectedEarthquake', this.scrollToSelectedEarthquake, this);
+    eventBus.on('search', this.search, this);
 
     this.collection.on('sync', this.render, this);
+    this.init();
+  },
 
+  init: function() {
     this.collection.fetch();
+    this.search('');
   },
 
   toggleMarker: function(event) {
@@ -33,12 +40,22 @@ var EarthQuakesView = Backbone.View.extend({
     $el.addClass('eq-selected');
   },
 
+  search: function(searchValue) {
+    this.filteredCollection = this.collection.filterByPlace(searchValue);
+    this.render();
+  },
+
   clearSelected: function() {
     $('#eq-list>div').removeClass('eq-selected');
   },
 
   render: function() {
-    this.$el.html(this.template({earthQuakes: this.collection.toJSON()}));
+    var earthquakes = this.filteredCollection;
+    this.$el.html(this.template({
+      earthquakes: earthquakes.toJSON(),
+      filtered: earthquakes.length,
+      total: this.collection.length
+    }));
     return this;
   }
 
