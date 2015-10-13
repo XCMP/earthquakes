@@ -36,7 +36,7 @@ var EarthQuakes = Backbone.Collection.extend({
     } else {
       filteredEarthquakes = new EarthQuakes(this.filter(
         function(eq) {
-          return eq.attributes.properties.place.toLowerCase().indexOf(searchValue.toLowerCase(searchValue)) != -1;
+          return eq.attributes.properties.title.toLowerCase().indexOf(searchValue.toLowerCase(searchValue)) != -1;
         }
       ));
     }
