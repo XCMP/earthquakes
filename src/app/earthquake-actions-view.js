@@ -7,6 +7,7 @@ var ButtonsView = Backbone.View.extend({
   events : {
     'click button.showAllMarkers' : 'showAllMarkers',
     'click button.hideAllMarkers' : 'hideAllMarkers',
+    'click button.reset'          : 'reset',
     'keyup input.searchField'     : 'search'
    },
 
@@ -15,15 +16,19 @@ var ButtonsView = Backbone.View.extend({
   },
 
   showAllMarkers: function(ev) {
-    eventBus.trigger("toggleAllMarkers", true);
+    eventBus.trigger('toggleAllMarkers', true);
   },
 
   hideAllMarkers: function(ev) {
-    eventBus.trigger("toggleAllMarkers", false);
+    eventBus.trigger('toggleAllMarkers', false);
+  },
+
+  reset: function(ev) {
+    location.reload();
   },
 
   search: function(ev) {
-    eventBus.trigger("search", $(ev.currentTarget).val());
+    eventBus.trigger('search', $(ev.currentTarget).val());
   },
 
   render: function() {
