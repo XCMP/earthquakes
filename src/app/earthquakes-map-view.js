@@ -73,7 +73,6 @@ var MapView = Backbone.View.extend({
   },
 
   setAllMarkers: function(earthquakes) {
-    console.info('setAllMarkers', earthquakes.length);
     _.each(this.allMarkers, function(marker) {
       var eq = _.find(earthquakes.models, function(eq) {
         return eq.id == marker.id;
