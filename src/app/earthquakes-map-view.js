@@ -16,6 +16,7 @@ var MapView = Backbone.View.extend({
 
     eventBus.on('toggleMarker', this.toggleMarker, this);
     eventBus.on('toggleAllMarkers', this.toggleAllMarkers, this);
+    eventBus.on('filtered', this.setAllMarkers, this);
 
     this.fixPositionOfMap();
     this.initGoogleMap();
@@ -29,11 +30,16 @@ var MapView = Backbone.View.extend({
 
   toggleAllMarkers: function(showMarkers) {
     var map = null;
+
     if (showMarkers) {
       map = this.map
     } 
     _.each(this.allMarkers, function(marker) {
-      marker.setMap(map);
+      if (marker.show) {
+        marker.setMap(map);
+      } else {
+        marker.setMap(null);
+      }
     })
   },
 
@@ -66,6 +72,16 @@ var MapView = Backbone.View.extend({
     selectedMarker.selected = true;
   },
 
+  setAllMarkers: function(earthquakes) {
+    console.info('setAllMarkers', earthquakes.length);
+    _.each(this.allMarkers, function(marker) {
+      var eq = _.find(earthquakes.models, function(eq) {
+        return eq.id == marker.id;
+      });
+      marker.show = eq? true: false;
+    });
+  },
+
   initMarkers: function() {
     this.allMarkers = [];
     var self = this;
@@ -75,7 +91,8 @@ var MapView = Backbone.View.extend({
         id: modelMarker.id,
         map: null,
         icon: this.defaultPinImage,
-        selected: false
+        selected: false,
+        show: true
       });
       marker.addListener('click', function() {
         self.scrollToSelectedEarthquakeEvent(marker.id);

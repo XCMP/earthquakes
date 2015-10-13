@@ -30,15 +30,17 @@ var EarthQuakes = Backbone.Collection.extend({
   },
 
   filterByPlace: function(searchValue) {
+    var filteredEarthquakes;
     if (searchValue === '') {
-      return this;
+      filteredEarthquakes = this;
+    } else {
+      filteredEarthquakes = new EarthQuakes(this.filter(
+        function(eq) {
+          return eq.attributes.properties.place.toLowerCase().indexOf(searchValue.toLowerCase(searchValue)) != -1;
+        }
+      ));
     }
-    var filteredEarthquakes = new EarthQuakes(this.filter(
-      function(eq) {
-        return eq.attributes.properties.place.toLowerCase().indexOf(searchValue.toLowerCase(searchValue)) != -1;
-      }
-    ));
-    eventBus.trigger('searched', filteredEarthquakes.length);
+    eventBus.trigger('filtered', filteredEarthquakes);
     return filteredEarthquakes;
   },
 
