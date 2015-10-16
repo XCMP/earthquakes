@@ -26,8 +26,6 @@ var ButtonsView = Backbone.View.extend({
   },
 
   getData: function() {
-    console.log('action.getData');
-
     var params = {
       reset: true,
       data: {

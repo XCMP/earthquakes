@@ -25,7 +25,6 @@ var EarthQuakesView = Backbone.View.extend({
   },
 
   getData: function(params) {
-    console.log('eq-view.getData');
     this.$el.html('<h1>LOADING ...</h1>');
     var self = this;
     this.filteredCollection.fetch(params).done(
