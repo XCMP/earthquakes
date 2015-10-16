@@ -5,6 +5,7 @@ var ButtonsView = Backbone.View.extend({
   template: Handlebars.templates['earthquakes-actions.hbs'],
 
   events : {
+    'click button.getData'        : 'getData',
     'click button.showAllMarkers' : 'showAllMarkers',
     'click button.hideAllMarkers' : 'hideAllMarkers',
     'click button.reset'          : 'reset',
@@ -13,6 +14,28 @@ var ButtonsView = Backbone.View.extend({
 
   initialize: function() {
     this.render();
+    this.$startDate = $('.startDate');
+    this.$endDate = $('.endDate');
+    this.initData();
+  },
+
+  initData: function() {
+    var d = new Date();
+    d.setDate(d.getDate()-30);
+    this.$startDate.val(Utils.formattedDate(d));
+  },
+
+  getData: function() {
+    console.log('action.getData');
+
+    var params = {
+      reset: true,
+      data: {
+       'starttime': Utils.formattedIsoDate(this.$startDate.val()),
+        'endtime': Utils.formattedIsoDate(this.$endDate.val())
+      }
+    }
+    eventBus.trigger('getData', params);
   },
 
   showAllMarkers: function(ev) {

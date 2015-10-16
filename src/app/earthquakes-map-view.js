@@ -3,7 +3,7 @@ var MapView = Backbone.View.extend({
   el: '#eq-map',
   
   location: {
-    'latitude'  : 52.3694949,
+    'latitude' : 52.3694949,
     'longitude': 5.250602
   },
   map: null,
@@ -43,6 +43,10 @@ var MapView = Backbone.View.extend({
     })
   },
 
+  removeAllMarkers: function() {
+    this.toggleAllMarkers(false);
+  },
+
   scrollToSelectedEarthquakeEvent: function(selectedEqId) {
     var selectedMarker = this.getSelectedMarker(selectedEqId);
     this.setSelectedMarker(selectedMarker);
@@ -56,7 +60,6 @@ var MapView = Backbone.View.extend({
         marker.selected = false;
       }
     });
-
   },
 
   getSelectedMarker: function(selectedEqId) {
@@ -82,6 +85,7 @@ var MapView = Backbone.View.extend({
   },
 
   initMarkers: function() {
+    this.removeAllMarkers();
     this.allMarkers = [];
     var self = this;
     _.each(this.collection.allMarkers, function(modelMarker) {
@@ -148,10 +152,6 @@ var MapView = Backbone.View.extend({
 
   getLatitude: function() {
     return this.location.latitude;
-  },
-
-  setLocation: function(location) {
-    this.location = location;
   }
 
 });

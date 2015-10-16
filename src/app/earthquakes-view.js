@@ -13,6 +13,7 @@ var EarthQuakesView = Backbone.View.extend({
   initialize: function(){
     eventBus.on('scrollToSelectedEarthquake', this.scrollToSelectedEarthquake, this);
     eventBus.on('search', this.search, this);
+    eventBus.on('getData', this.getData, this);
 
     this.collection.on('sync', this.render, this);
     this.init();
@@ -21,6 +22,18 @@ var EarthQuakesView = Backbone.View.extend({
   init: function() {
     this.collection.fetch();
     this.search('');
+  },
+
+  getData: function(params) {
+    console.log('eq-view.getData');
+    this.$el.html('<h1>LOADING ...</h1>');
+    var self = this;
+    this.filteredCollection.fetch(params).done(
+      function() {
+        self.render()
+      }
+    );
+    eventBus.trigger('filtered', this.filteredCollection);
   },
 
   toggleMarker: function(event) {
