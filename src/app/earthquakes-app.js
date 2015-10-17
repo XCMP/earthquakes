@@ -12,7 +12,7 @@ $(document).ready(function() {
     collection: earthquakes
   });
 
-  var buttonsView = new ButtonsView({
+  var actionsView = new ActionsView({
   });
 
 });

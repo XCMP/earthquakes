@@ -1,4 +1,4 @@
-var ButtonsView = Backbone.View.extend({
+var ActionsView = Backbone.View.extend({
 
   el: '#eq-actions',
   
