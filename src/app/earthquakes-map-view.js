@@ -71,6 +71,7 @@ EQ.MapView = Backbone.View.extend({
     this.clearSelectedMarkers();
     selectedMarker.setMap(this.map);
     selectedMarker.setIcon(this.selectedPinImage);
+    selectedMarker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
     selectedMarker.selected = true;
   },
 
