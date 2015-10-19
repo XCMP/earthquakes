@@ -18,7 +18,6 @@ var MapView = Backbone.View.extend({
     eventBus.on('toggleAllMarkers', this.toggleAllMarkers, this);
     eventBus.on('filtered', this.setAllMarkers, this);
 
-    this.fixPositionOfMap();
     this.initGoogleMap();
   },
 
@@ -129,21 +128,6 @@ var MapView = Backbone.View.extend({
         west:-25 
       }
     });
-  },
-
-  fixPositionOfMap: function() {
-    $(window).scroll(function(e) { 
-      var $fixedElement = $('.map-fixed');
-      var isPositionFixed = ($fixedElement.css('position') == 'fixed');
-      var l = $fixedElement.position().left;
-      if ($(this).scrollTop() > 0 && !isPositionFixed) { 
-        $fixedElement.css({'position': 'fixed', 'top': '0px', 'left': l+'px', 'margin-top': '.5em'});
-      }
-      if ($(this).scrollTop() < 0 && isPositionFixed) {
-        $fixedElement.css({'position': 'static', 'top': '0px', 'left': l+'px', 'margin-top': '.5em'});
-      } 
-    });
-
   },
 
   getLongitude: function() {

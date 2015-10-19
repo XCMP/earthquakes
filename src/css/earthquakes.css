@@ -51,12 +51,16 @@ input {
 }
 
 .map-fixed {
+  height: 100%;
+  width: 61em;
+  top: 0px;
+  left: 435.188px;
+  position: fixed;
   float: left;
   margin-left: .25em;
+  margin-top: 0.5em;
   border: 1px solid;
   /*border-radius: 12px;*/
-  width: 61em;
-  height: 100%;
 }
 
 div.actions {
