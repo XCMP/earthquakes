@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         dest: 'dist/libs.js'
       },
       app: {
-        src: ['src/app/**/*.js'],
+        src: ['src/app/earthquakes-app.js', 'src/app/**/*.js'],
         dest: 'dist/<%= pkg.name %>.js'
       },
       css: {
