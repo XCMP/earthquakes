@@ -32,7 +32,7 @@ var ActionsView = Backbone.View.extend({
        'starttime': Utils.formattedIsoDate(this.$startDate.val()),
         'endtime': Utils.formattedIsoDate(this.$endDate.val())
       }
-    }
+    };
     eventBus.trigger('getData', params);
   },
 

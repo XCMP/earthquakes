@@ -32,7 +32,7 @@ var MapView = Backbone.View.extend({
     var map = null;
 
     if (showMarkers) {
-      map = this.map
+      map = this.map;
     } 
     _.each(this.allMarkers, function(marker) {
       if (marker.show) {
@@ -40,7 +40,7 @@ var MapView = Backbone.View.extend({
       } else {
         marker.setMap(null);
       }
-    })
+    });
   },
 
   removeAllMarkers: function() {

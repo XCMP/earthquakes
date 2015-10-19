@@ -29,7 +29,7 @@ var EarthQuakesView = Backbone.View.extend({
     var self = this;
     this.filteredCollection.fetch(params).done(
       function() {
-        self.render()
+        self.render();
       }
     );
     eventBus.trigger('filtered', this.filteredCollection);

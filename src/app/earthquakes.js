@@ -6,7 +6,7 @@ var EarthQuakes = Backbone.Collection.extend({
   model: EarthQuake,
   allMarkers: [],
 
-  url: function(params) {
+  url: function() {
     return 'http://earthquake.usgs.gov/fdsnws/event/1/query?'
       + 'format=geojson&'
       + 'minlongitude=-25&'
@@ -15,7 +15,6 @@ var EarthQuakes = Backbone.Collection.extend({
       + 'maxlatitude=72';
       //+ 'starttime=2015-01-01&'
       //+ 'endtime=2015-01-01&'
-    return url;
   },
 
   initialize: function() {
