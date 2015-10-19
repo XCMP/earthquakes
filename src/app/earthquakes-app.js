@@ -7,15 +7,15 @@ $(document).ready(function() {
 
   var earthquakes = new EQ.EarthQuakes();
 
+  new EQ.ActionsView({
+  });
+
   new EQ.EarthQuakesView({
     collection: earthquakes
   });
 
   new EQ.MapView({
     collection: earthquakes
-  });
-
-  new EQ.ActionsView({
   });
 
 });
