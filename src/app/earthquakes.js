@@ -7,12 +7,12 @@ EQ.EarthQuakes = Backbone.Collection.extend({
   allMarkers: [],
 
   url: function() {
-    return 'http://earthquake.usgs.gov/fdsnws/event/1/query?'
-      + 'format=geojson&'
-      + 'minlongitude=-25&'
-      + 'maxlongitude=40&'
-      + 'minlatitude=35&'
-      + 'maxlatitude=72';
+    return 'http://earthquake.usgs.gov/fdsnws/event/1/query?' +
+      'format=geojson&'   +
+      'minlongitude=-25&' +
+      'maxlongitude=40&'  +
+      'minlatitude=35&'   +
+      'maxlatitude=72';
       
       //+ 'starttime=2015-01-01&'
       //+ 'endtime=2015-01-01&'
