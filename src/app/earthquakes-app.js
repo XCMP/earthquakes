@@ -1,18 +1,21 @@
-var eventBus = _.extend({}, Backbone.Events);
+
+var EQ = {};
 
 $(document).ready(function() {
+ 
+  EQ.eventBus = _.extend({}, Backbone.Events);
 
-  var earthquakes = new EarthQuakes();
+  var earthquakes = new EQ.EarthQuakes();
 
-  var earthQuakesView = new EarthQuakesView({
+  new EQ.EarthQuakesView({
     collection: earthquakes
   });
 
-  var mapView = new MapView({
+  new EQ.MapView({
     collection: earthquakes
   });
 
-  var actionsView = new ActionsView({
+  new EQ.ActionsView({
   });
 
 });

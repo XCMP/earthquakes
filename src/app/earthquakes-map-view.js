@@ -1,4 +1,4 @@
-var MapView = Backbone.View.extend({
+EQ.MapView = Backbone.View.extend({
 
   el: '#eq-map',
   
@@ -14,9 +14,9 @@ var MapView = Backbone.View.extend({
   initialize: function() {
     this.collection.on('sync', this.initMarkers, this);
 
-    eventBus.on('toggleMarker', this.toggleMarker, this);
-    eventBus.on('toggleAllMarkers', this.toggleAllMarkers, this);
-    eventBus.on('filtered', this.setAllMarkers, this);
+    EQ.eventBus.on('toggleMarker', this.toggleMarker, this);
+    EQ.eventBus.on('toggleAllMarkers', this.toggleAllMarkers, this);
+    EQ.eventBus.on('filtered', this.setAllMarkers, this);
 
     this.initGoogleMap();
   },
@@ -49,7 +49,7 @@ var MapView = Backbone.View.extend({
   scrollToSelectedEarthquakeEvent: function(selectedEqId) {
     var selectedMarker = this.getSelectedMarker(selectedEqId);
     this.setSelectedMarker(selectedMarker);
-    eventBus.trigger("scrollToSelectedEarthquake", selectedEqId);
+    EQ.eventBus.trigger("scrollToSelectedEarthquake", selectedEqId);
   },
 
   clearSelectedMarkers: function() {

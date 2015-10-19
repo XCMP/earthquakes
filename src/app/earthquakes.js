@@ -1,9 +1,9 @@
-var EarthQuake = Backbone.Model.extend({
+EQ.EarthQuake = Backbone.Model.extend({
 });
 
-var EarthQuakes = Backbone.Collection.extend({
+EQ.EarthQuakes = Backbone.Collection.extend({
 
-  model: EarthQuake,
+  model: EQ.EarthQuake,
   allMarkers: [],
 
   url: function() {
@@ -13,6 +13,7 @@ var EarthQuakes = Backbone.Collection.extend({
       + 'maxlongitude=40&'
       + 'minlatitude=35&'
       + 'maxlatitude=72';
+      
       //+ 'starttime=2015-01-01&'
       //+ 'endtime=2015-01-01&'
   },
@@ -34,13 +35,13 @@ var EarthQuakes = Backbone.Collection.extend({
     if (searchValue === '') {
       filteredEarthquakes = this;
     } else {
-      filteredEarthquakes = new EarthQuakes(this.filter(
+      filteredEarthquakes = new EQ.EarthQuakes(this.filter(
         function(eq) {
           return eq.attributes.properties.title.toLowerCase().indexOf(searchValue.toLowerCase(searchValue)) != -1;
         }
       ));
     }
-    eventBus.trigger('filtered', filteredEarthquakes);
+    EQ.eventBus.trigger('filtered', filteredEarthquakes);
     return filteredEarthquakes;
   },
 

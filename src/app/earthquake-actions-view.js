@@ -1,4 +1,4 @@
-var ActionsView = Backbone.View.extend({
+EQ.ActionsView = Backbone.View.extend({
 
   el: '#eq-actions',
   
@@ -33,15 +33,15 @@ var ActionsView = Backbone.View.extend({
         'endtime': Utils.formattedIsoDate(this.$endDate.val())
       }
     };
-    eventBus.trigger('getData', params);
+    EQ.eventBus.trigger('getData', params);
   },
 
   showAllMarkers: function(ev) {
-    eventBus.trigger('toggleAllMarkers', true);
+    EQ.eventBus.trigger('toggleAllMarkers', true);
   },
 
   hideAllMarkers: function(ev) {
-    eventBus.trigger('toggleAllMarkers', false);
+    EQ.eventBus.trigger('toggleAllMarkers', false);
   },
 
   reset: function(ev) {
@@ -49,7 +49,7 @@ var ActionsView = Backbone.View.extend({
   },
 
   search: function(ev) {
-    eventBus.trigger('search', $(ev.currentTarget).val());
+    EQ.eventBus.trigger('search', $(ev.currentTarget).val());
   },
 
   render: function() {

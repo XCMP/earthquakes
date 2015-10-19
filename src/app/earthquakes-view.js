@@ -1,4 +1,4 @@
-var EarthQuakesView = Backbone.View.extend({
+EQ.EarthQuakesView = Backbone.View.extend({
 
   el: '#eq-list',
 
@@ -11,9 +11,9 @@ var EarthQuakesView = Backbone.View.extend({
    },
 
   initialize: function(){
-    eventBus.on('scrollToSelectedEarthquake', this.scrollToSelectedEarthquake, this);
-    eventBus.on('search', this.search, this);
-    eventBus.on('getData', this.getData, this);
+    EQ.eventBus.on('scrollToSelectedEarthquake', this.scrollToSelectedEarthquake, this);
+    EQ.eventBus.on('search', this.search, this);
+    EQ.eventBus.on('getData', this.getData, this);
 
     this.collection.on('sync', this.render, this);
     this.init();
@@ -32,7 +32,7 @@ var EarthQuakesView = Backbone.View.extend({
         self.render();
       }
     );
-    eventBus.trigger('filtered', this.filteredCollection);
+    EQ.eventBus.trigger('filtered', this.filteredCollection);
   },
 
   toggleMarker: function(event) {
@@ -40,7 +40,7 @@ var EarthQuakesView = Backbone.View.extend({
     var selectedEqId = $el.data('eq-id');
     this.clearSelected();
     $('#'+selectedEqId).addClass('eq-selected');
-    eventBus.trigger('toggleMarker', selectedEqId);
+    EQ.eventBus.trigger('toggleMarker', selectedEqId);
   },
 
   scrollToSelectedEarthquake: function(eqId) {
