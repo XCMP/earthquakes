@@ -57,6 +57,7 @@ EQ.MapView = Backbone.View.extend({
       if (marker.selected) {
         marker.setIcon(this.defaultPinImage);
         marker.selected = false;
+        marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
       }
     });
   },
