@@ -13,16 +13,19 @@
   "author": "XCMP",
   "license": "ISC",
   "dependencies": {
-    "grunt": "^0.4.5",
-    "jquery":"^1.11.1",
-    "backbone":"^1.2.3"
   },
   "devDependencies": {
-    "handlebars":"^4.0.3",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-uglify": "^0.9.2",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-shell": "^1.1.2"
+    "jquery": "^1.11.3",
+    "backbone": "^1.2.3",
+    "handlebars": "^4.0.3",
+    "underscore": "^1.8.3",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-handlebars": "^4.0.0",
+    "gulp-shell": "^0.5.0",
+    "gulp-uglify": "^1.4.2",
+    "gulp-livereload": "^3.8.1",
   },
   "homepage": "https://github.com/XCMP/earthquakes#readme"
 }

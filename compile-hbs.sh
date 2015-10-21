@@ -1,1 +1,0 @@
-handlebars src/hbs/*.hbs -f dist/hbs-templates.js
