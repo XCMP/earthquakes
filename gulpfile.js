@@ -85,7 +85,6 @@ gulp.task('watch', ['build'], function() {
   gulp.watch(paths.scripts.lib, ['scripts-libs']);
   gulp.watch(paths.scripts.app, ['scripts-app']);
   gulp.watch(['index.html'], ['base']);
-  gulp.watch(paths.images, ['images']);
   gulp.watch(paths.styles, ['styles']);
   gulp.watch(paths.templates, ['templates']);
 });
