@@ -67,14 +67,15 @@ gulp.task('styles', function() {
 });
 
 gulp.task('templates', function() {
-    return gulp.src('')
+  /* use shell to compile, so we can use latest version of Handlebars */
+  return gulp.src('')
     .pipe(shell([
       'rm -rf dist/js/templates',
       'mkdir -p dist/js/templates',
       'handlebars src/hbs/*.hbs -f dist/js/templates/hbs-templates.js'
     ]))
     .pipe(livereload());
-  });
+});
 
 gulp.task('build', ['clean', 'base', 'scripts-libs', 'scripts-app', 'styles', 'templates'], function() {
   console.log('Build done.')
