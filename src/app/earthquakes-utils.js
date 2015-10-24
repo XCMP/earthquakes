@@ -4,18 +4,21 @@ var Utils = {
     return this.pad(dateObject.getDate(), 2)  + '-' + this.pad((dateObject.getMonth()+1), 2) + '-' + dateObject.getFullYear();
   },
 
-  /* TODO
-    All times use ISO8601 Date/Time format. Unless a timezone is specified, UTC is assumed. Examples:
-      2015-10-14, Implicit UTC timezone, and time at start of the day (00:00:00)
-      2015-10-14T19:54:09, Implicit UTC timezone.
-      2015-10-14T19:54:09+00:00, Explicit timezone.
-  */
   formattedIsoDate: function(dateString) {
     if (dateString.length != 10) {
       return '';
     } else {
-      return dateString.slice(6, 10) + '-' + dateString.slice(3, 5) + '-' + dateString.slice(0, 2);
+      return dateString.slice(6, 10) + '-' + dateString.slice(3, 5) + '-' + dateString.slice(0, 2) + 'T00:00:00' + this.timezoneOffset();
     }
+  },
+
+  timezoneOffset: function() {
+    var timezoneOffsetInMinutes = new Date().getTimezoneOffset();
+    var sign = timezoneOffsetInMinutes > 0? '-' : '+';
+    timezoneOffsetInMinutes = Math.abs(timezoneOffsetInMinutes);
+    var hours = Math.floor(timezoneOffsetInMinutes / 60);
+    var minutes = timezoneOffsetInMinutes % 60;
+    return sign + this.pad(hours, 2) + ':' + this.pad(minutes, 2);
   },
 
   pad: function(n, width, z) {
@@ -23,4 +26,5 @@ var Utils = {
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
+
 };
