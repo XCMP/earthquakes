@@ -14,7 +14,7 @@ var Utils = {
 
   timezoneOffset: function() {
     var timezoneOffsetInMinutes = new Date().getTimezoneOffset();
-    var sign = timezoneOffsetInMinutes > 0? '-' : '+';
+    var sign = timezoneOffsetInMinutes > 0 ? '-' : '+';
     timezoneOffsetInMinutes = Math.abs(timezoneOffsetInMinutes);
     var hours = Math.floor(timezoneOffsetInMinutes / 60);
     var minutes = timezoneOffsetInMinutes % 60;
