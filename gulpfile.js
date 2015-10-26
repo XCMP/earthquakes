@@ -24,9 +24,6 @@ var paths = {
       'src/app/earthquakes-view.js',
       'src/app/earthquakes-map-view.js',
       'src/app/earthquakes-utils.js'
-    ],
-    css: [
-      'src/css/earthquakes.css'
     ]
   },
   styles: 'src/css/*.css',
