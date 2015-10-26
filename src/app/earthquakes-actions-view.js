@@ -16,6 +16,11 @@ EQ.ActionsView = Backbone.View.extend({
     this.render();
     this.$startDate = $('.startDate');
     this.$endDate = $('.endDate');
+    this.$minLongitude = $('.minLongitude');
+    this.$maxLongitude = $('.maxLongitude');
+    this.$minLatitude = $('.minLatitude');
+    this.$maxLatitude = $('.maxLatitude');
+    this.$ = $('.endDate');
     this.initData();
   },
 
@@ -23,6 +28,10 @@ EQ.ActionsView = Backbone.View.extend({
     var d = new Date();
     d.setDate(d.getDate()-30);
     this.$startDate.val(Utils.formattedDate(d));
+    this.$minLongitude.val('-25');
+    this.$maxLongitude.val('40');
+    this.$minLatitude.val('35');
+    this.$maxLatitude.val('72');
   },
 
   getData: function() {
@@ -30,7 +39,11 @@ EQ.ActionsView = Backbone.View.extend({
       reset: true,
       data: {
        'starttime': Utils.formattedIsoDate(this.$startDate.val()),
-        'endtime': Utils.formattedIsoDate(this.$endDate.val())
+        'endtime': Utils.formattedIsoDate(this.$endDate.val()),
+        'minlongitude': this.$minLongitude.val(),
+        'maxlongitude': this.$maxLongitude.val(),
+        'minlatitude': this.$minLatitude.val(),
+        'maxlatitude': this.$maxLatitude.val()
       }
     };
     EQ.eventBus.trigger('getData', params);

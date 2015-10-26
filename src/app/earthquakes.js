@@ -5,17 +5,24 @@ EQ.EarthQuakes = Backbone.Collection.extend({
 
   model: EQ.EarthQuake,
   allMarkers: [],
+  initialized: false,
 
   url: function() {
-    return 'http://earthquake.usgs.gov/fdsnws/event/1/query?' +
-      'format=geojson&'   +
-      'minlongitude=-25&' +
-      'maxlongitude=40&'  +
-      'minlatitude=35&'   +
-      'maxlatitude=72';
-      
-      //+ 'starttime=2015-01-01&'
-      //+ 'endtime=2015-01-01&'
+    /**
+      Interface:
+        'starttime=2015-01-01'
+        'endtime=2015-01-01'
+        'minlongitude=-25'
+        'maxlongitude=40'
+        'minlatitude=35'
+        'maxlatitude=72'
+    */
+    var location = '';
+    if (!this.initialized) { 
+      location = '&minlongitude=-25&maxlongitude=40&minlatitude=35&maxlatitude=72';
+      this.initialized = true;
+    }
+    return 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson' + location;
   },
 
   initialize: function() {
