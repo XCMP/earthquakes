@@ -1,73 +1,77 @@
-EQ.EarthQuakesView = Backbone.View.extend({
+(function (_events) {
 
-  el: '#eq-list',
+  EQ.EarthQuakesView = Backbone.View.extend({
 
-  template: Handlebars.templates['earthquakes.hbs'],
+    el: '#eq-list',
 
-  filteredCollection: null,
+    template: Handlebars.templates['earthquakes.hbs'],
 
-  events : {
-    'click button.toggleMarker' : 'toggleMarker'
-   },
+    filteredCollection: null,
 
-  initialize: function(){
-    EQ.eventBus.on('scrollToSelectedEarthquake', this.scrollToSelectedEarthquake, this);
-    EQ.eventBus.on('search', this.search, this);
-    EQ.eventBus.on('getData', this.getData, this);
+    events : {
+      'click button.toggleMarker' : 'toggleMarker'
+     },
 
-    this.collection.on('sync', this.render, this);
-    this.init();
-  },
+    initialize: function(){
+      _events.bus.on(_events.SCROLL_TO_SELECTED_EQ, this.scrollToSelectedEarthquake, this);
+      _events.bus.on(_events.SEARCH, this.search, this);
+      _events.bus.on(_events.GET_DATA, this.getData, this);
 
-  init: function() {
-   this.filteredCollection = this.collection;
-  },
+      this.collection.on('sync', this.render, this);
+      this.init();
+    },
 
-  getData: function(params) {
-    this.$el.html('<h1>LOADING ...</h1>');
-    var self = this;
-    this.filteredCollection.fetch(params).done(
-      function() {
-        self.render();
-      }
-    );
-    EQ.eventBus.trigger('filtered', this.filteredCollection);
-  },
+    init: function() {
+     this.filteredCollection = this.collection;
+    },
 
-  toggleMarker: function(event) {
-    var $el = $(event.currentTarget);
-    var selectedEqId = $el.data('eq-id');
-    this.clearSelected();
-    $('#'+selectedEqId).addClass('eq-selected');
-    EQ.eventBus.trigger('toggleMarker', selectedEqId);
-  },
+    getData: function(params) {
+      this.$el.html('<h1>LOADING ...</h1>');
+      var self = this;
+      this.filteredCollection.fetch(params).done(
+        function() {
+          self.render();
+        }
+      );
+      _events.bus.trigger(_events.FILTERED, this.filteredCollection);
+    },
 
-  scrollToSelectedEarthquake: function(eqId) {
-    var $el = $("#"+eqId);
-    $('body').animate({
-        scrollTop: $el.offset().top - 3
-      }, 'slow');
-    this.clearSelected();
-    $el.addClass('eq-selected');
-  },
+    toggleMarker: function(event) {
+      var $el = $(event.currentTarget);
+      var selectedEqId = $el.data('eq-id');
+      this.clearSelected();
+      $('#'+selectedEqId).addClass('eq-selected');
+      _events.bus.trigger(_events.TOGGLE_MARKER, selectedEqId);
+    },
 
-  search: function(searchValue) {
-    this.filteredCollection = this.collection.filterByPlace(searchValue);
-    this.render();
-  },
+    scrollToSelectedEarthquake: function(eqId) {
+      var $el = $("#"+eqId);
+      $('body').animate({
+          scrollTop: $el.offset().top - 3
+        }, 'slow');
+      this.clearSelected();
+      $el.addClass('eq-selected');
+    },
 
-  clearSelected: function() {
-    $('#eq-list>div').removeClass('eq-selected');
-  },
+    search: function(searchValue) {
+      this.filteredCollection = this.collection.filterByPlace(searchValue);
+      this.render();
+    },
 
-  render: function() {
-    var earthquakes = this.filteredCollection;
-    this.$el.html(this.template({
-      earthquakes: earthquakes.toJSON(),
-      filtered: earthquakes.length,
-      total: this.collection.length
-    }));
-    return this;
-  }
+    clearSelected: function() {
+      $('#eq-list>div').removeClass('eq-selected');
+    },
 
-});
+    render: function() {
+      var earthquakes = this.filteredCollection;
+      this.$el.html(this.template({
+        earthquakes: earthquakes.toJSON(),
+        filtered: earthquakes.length,
+        total: this.collection.length
+      }));
+      return this;
+    }
+
+  });
+
+})(EQ.events);

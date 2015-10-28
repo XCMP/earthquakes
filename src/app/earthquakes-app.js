@@ -1,10 +1,22 @@
 
 var EQ = {};
 
+EQ.events = {
+  // Constant for events
+  LOCATION_CHANGED      : 'locationChanged',
+  SCROLL_TO_SELECTED_EQ : 'scrollToSelectedEarthquake',
+  search                : 'search',
+  GET_DATA              : 'getData',
+  FILTERED              : 'filtered',
+  TOGGLE_MARKER         : 'toggleMarker',
+  TOGGLE_ALL_MARKERS    : 'toggleAllMarkers',
+
+  // The bus
+  bus                   : _.extend({}, Backbone.Events)
+};
+
 $(document).ready(function() {
  
-  EQ.eventBus = _.extend({}, Backbone.Events);
-
   var earthquakes = new EQ.EarthQuakes();
 
   new EQ.EarthQuakesView({
@@ -15,8 +27,7 @@ $(document).ready(function() {
     collection: earthquakes
   });
 
-  EQ.actionsView = new EQ.ActionsView({
+  new EQ.ActionsView({
   });
-
 
 });

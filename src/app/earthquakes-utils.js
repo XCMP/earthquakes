@@ -1,4 +1,4 @@
-var Utils = {
+EQ.utils = {
 
   formattedDate: function(dateObject) {
     return this.pad(dateObject.getDate(), 2)  + '-' + this.pad((dateObject.getMonth()+1), 2) + '-' + dateObject.getFullYear();

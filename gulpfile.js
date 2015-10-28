@@ -19,11 +19,11 @@ var paths = {
     ],
     app: [
       'src/app/earthquakes-app.js',
+      'src/app/earthquakes-utils.js',
       'src/app/earthquakes.js',
       'src/app/earthquakes-actions-view.js',
       'src/app/earthquakes-view.js',
-      'src/app/earthquakes-map-view.js',
-      'src/app/earthquakes-utils.js'
+      'src/app/earthquakes-map-view.js'
     ]
   },
   styles: 'src/css/*.css',
