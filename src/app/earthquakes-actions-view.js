@@ -11,8 +11,8 @@ EQ.ActionsView = Backbone.View.extend({
   },
 
   events : {
-    'click button.getData'        : 'triggerGetData',
-    'submit'                      : 'triggerGetData',
+    'click button.getData'        : 'processRequest',
+    'submit'                      : 'processRequest',
     'click button.showAllMarkers' : 'showAllMarkers',
     'click button.hideAllMarkers' : 'hideAllMarkers',
     'click button.reset'          : 'reset',
@@ -27,7 +27,6 @@ EQ.ActionsView = Backbone.View.extend({
     this.$maxLongitude = $('.maxLongitude');
     this.$minLatitude = $('.minLatitude');
     this.$maxLatitude = $('.maxLatitude');
-    this.$ = $('.endDate');
     this.initQueryData();
   },
 
@@ -39,12 +38,19 @@ EQ.ActionsView = Backbone.View.extend({
     this.$maxLongitude.val('40');
     this.$minLatitude.val('35');
     this.$maxLatitude.val('72');
-    this.triggerGetData();
+    this.processRequest();
   },
 
-  triggerGetData: function(ev) {
-    if (ev) ev.preventDefault();
+  processRequest: function(ev) {
+    if (ev) {
+      ev.preventDefault();
+    }
     this.setCachedData();
+    
+    if (this.cachedQueryData.coordinatesChanged) {
+      EQ.eventBus.trigger('locationChanged', this.cachedQueryData.coordinates);
+      this.cachedQueryData.coordinatesChanged = false;
+    }
     if (this.cachedQueryData.dataChanged) {
       var c = this.cachedQueryData.coordinates, t = this.cachedQueryData.times;
       var params = {
@@ -64,6 +70,7 @@ EQ.ActionsView = Backbone.View.extend({
   },
 
   setCachedData: function() {
+    // coordinates
     var newCoordinates = {
       'minlongitude': this.$minLongitude.val(),
       'maxlongitude': this.$maxLongitude.val(),
@@ -71,10 +78,12 @@ EQ.ActionsView = Backbone.View.extend({
       'maxlatitude': this.$maxLatitude.val()
     };
     if (!_.isEqual(this.cachedQueryData.coordinates, newCoordinates)) {
-      this.cachedQueryData.dataChanged = true;
       this.cachedQueryData.coordinates = newCoordinates;
-      EQ.eventBus.trigger('locationChanged', this.cachedQueryData.coordinates);
+      this.cachedQueryData.dataChanged = true;
+      this.cachedQueryData.coordinatesChanged = true;
     }
+
+    // times
     var newTimes = {
       'starttime': Utils.formattedIsoDate(this.$startDate.val()),
       'endtime': Utils.formattedIsoDate(this.$endDate.val())
