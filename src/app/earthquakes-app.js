@@ -7,9 +7,6 @@ $(document).ready(function() {
 
   var earthquakes = new EQ.EarthQuakes();
 
-  new EQ.ActionsView({
-  });
-
   new EQ.EarthQuakesView({
     collection: earthquakes
   });
@@ -17,5 +14,9 @@ $(document).ready(function() {
   new EQ.MapView({
     collection: earthquakes
   });
+
+  EQ.actionsView = new EQ.ActionsView({
+  });
+
 
 });

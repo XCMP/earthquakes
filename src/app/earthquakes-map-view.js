@@ -6,10 +6,12 @@ EQ.MapView = Backbone.View.extend({
     'latitude' : 52.3694949,
     'longitude': 5.250602
   },
-  map: null,
-  allMarkers: [],
   defaultPinImage: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
   selectedPinImage: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+
+  locationRectangle: {},
+  map: null,
+  allMarkers: [],
 
   initialize: function() {
     this.collection.on('sync', this.initMarkers, this);
@@ -17,6 +19,7 @@ EQ.MapView = Backbone.View.extend({
     EQ.eventBus.on('toggleMarker', this.toggleMarker, this);
     EQ.eventBus.on('toggleAllMarkers', this.toggleAllMarkers, this);
     EQ.eventBus.on('filtered', this.setAllMarkers, this);
+    EQ.eventBus.on('locationChanged', this.replaceRectangle, this);
 
     this.initGoogleMap();
   },
@@ -105,6 +108,34 @@ EQ.MapView = Backbone.View.extend({
     });
   },
 
+  replaceRectangle: function(locationCoordinates) {
+    this.removeRectangle();
+    this.drawRectangle(locationCoordinates)
+  },
+
+  drawRectangle: function(locationCoordinates) {
+    this.locationRectangle = new google.maps.Rectangle({
+      strokeColor: '#333333',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#CCCCCC',
+      fillOpacity: 0.35,
+      map: this.map,
+      bounds: {
+        north: parseInt(locationCoordinates.maxlatitude, 10),
+        south: parseInt(locationCoordinates.minlatitude, 10),
+        east: parseInt(locationCoordinates.maxlongitude, 10),
+        west: parseInt(locationCoordinates.minlongitude, 10)
+      }
+    });
+  },
+
+  removeRectangle: function() {
+    if (this.locationRectangle.setMap) {
+     this.locationRectangle.setMap(null);
+    }
+  },
+
   initGoogleMap: function() {
     var myCenter = new google.maps.LatLng(this.getLatitude(), this.getLongitude());
 
@@ -116,19 +147,11 @@ EQ.MapView = Backbone.View.extend({
 
     this.map = new google.maps.Map(this.$el.get(0), mapProp);
 
-    var rectangle = new google.maps.Rectangle({
-      strokeColor: '#333333',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#CCCCCC',
-      fillOpacity: 0.35,
-      map: this.map,
-      bounds: {
-        north: 72,
-        south: 35,
-        east: 40,
-        west:-25 
-      }
+    this.drawRectangle({
+      'minlongitude': -25,
+      'maxlongitude': 40,
+      'minlatitude': 35,
+      'maxlatitude': 72
     });
   },
 

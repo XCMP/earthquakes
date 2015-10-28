@@ -20,8 +20,7 @@ EQ.EarthQuakesView = Backbone.View.extend({
   },
 
   init: function() {
-    this.collection.fetch();
-    this.search('');
+   this.filteredCollection = this.collection;
   },
 
   getData: function(params) {
