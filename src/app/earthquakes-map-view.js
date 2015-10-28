@@ -1,6 +1,6 @@
 (function (_events) {
 
-  EQ.MapView = Backbone.View.extend({
+  EQ.Views.MapView = Backbone.View.extend({
 
     el: '#eq-map',
     
@@ -167,4 +167,4 @@
 
   });
 
-})(EQ.events);
+})(EQ.Events);

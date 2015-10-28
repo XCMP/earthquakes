@@ -1,6 +1,6 @@
 (function (_events) {
 
-  EQ.EarthQuakesView = Backbone.View.extend({
+  EQ.Views.EarthQuakesView = Backbone.View.extend({
 
     el: '#eq-list',
 
@@ -74,4 +74,4 @@
 
   });
 
-})(EQ.events);
+})(EQ.Events);

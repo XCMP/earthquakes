@@ -1,33 +1,37 @@
+var EQ = {
 
-var EQ = {};
+  Models: {},
+  Collections: {},
+  Views: {},
 
-EQ.events = {
-  // Constant for events
-  LOCATION_CHANGED      : 'locationChanged',
-  SCROLL_TO_SELECTED_EQ : 'scrollToSelectedEarthquake',
-  search                : 'search',
-  GET_DATA              : 'getData',
-  FILTERED              : 'filtered',
-  TOGGLE_MARKER         : 'toggleMarker',
-  TOGGLE_ALL_MARKERS    : 'toggleAllMarkers',
+  Events: {
+    // Constant for events
+    LOCATION_CHANGED      : 'locationChanged',
+    SCROLL_TO_SELECTED_EQ : 'scrollToSelectedEarthquake',
+    search                : 'search',
+    GET_DATA              : 'getData',
+    FILTERED              : 'filtered',
+    TOGGLE_MARKER         : 'toggleMarker',
+    TOGGLE_ALL_MARKERS    : 'toggleAllMarkers',
 
-  // The bus
-  bus                   : _.extend({}, Backbone.Events)
+    // The bus
+    bus                   : _.extend({}, Backbone.Events)
+  }
 };
 
 $(document).ready(function() {
  
-  var earthquakes = new EQ.EarthQuakes();
+  var earthquakes = new EQ.Collections.EarthQuakes();
 
-  new EQ.EarthQuakesView({
+  new EQ.Views.EarthQuakesView({
     collection: earthquakes
   });
 
-  new EQ.MapView({
+  new EQ.Views.MapView({
     collection: earthquakes
   });
 
-  new EQ.ActionsView({
+  new EQ.Views.ActionsView({
   });
 
 });

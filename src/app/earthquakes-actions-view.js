@@ -1,6 +1,6 @@
 (function(_events, _utils){
   
-  EQ.ActionsView = Backbone.View.extend({
+  EQ.Views.ActionsView = Backbone.View.extend({
 
     el: '#eq-actions',
     
@@ -118,4 +118,4 @@
 
   });
 
-})(EQ.events, EQ.utils);
+})(EQ.Events, EQ.utils);

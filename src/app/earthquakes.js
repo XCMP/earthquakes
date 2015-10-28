@@ -1,11 +1,8 @@
 (function(_events) {
 
-  EQ.EarthQuake = Backbone.Model.extend({
-  });
+  EQ.Collections.EarthQuakes = Backbone.Collection.extend({
 
-  EQ.EarthQuakes = Backbone.Collection.extend({
-
-    model: EQ.EarthQuake,
+    model: EQ.Models.EarthQuake,
     allMarkers: [],
     initialized: false,
 
@@ -70,4 +67,4 @@
 
   });
 
-})(EQ.events);
+})(EQ.Events);
