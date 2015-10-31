@@ -33,18 +33,13 @@
     },
 
     toggleAllMarkers: function(showMarkers) {
-      var map = null;
-
-      if (showMarkers) {
-        map = this.map;
-      } 
       _.each(this.allMarkers, function(marker) {
         if (marker.show) {
-          marker.setMap(map);
+          marker.setMap(showMarkers? this.map : null);
         } else {
           marker.setMap(null);
         }
-      });
+      }, this);
     },
 
     removeAllMarkers: function() {
@@ -86,7 +81,7 @@
         var eq = _.find(earthquakes.models, function(eq) {
           return eq.id == marker.id;
         });
-        marker.show = eq? true: false;
+        marker.show = eq ? true: false;
       });
     },
 
