@@ -30,7 +30,6 @@
     parse: function(response) {
       this.allMarkers = [];
       for(var i = 0; i < response.features.length; i++) {
-        response.features[i].properties.time = new Date(response.features[i].properties.time);
         this.addMarker(response.features[i]);
       }
       return response.features;
