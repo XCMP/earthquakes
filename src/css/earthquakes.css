@@ -25,6 +25,10 @@ input {
   border: 1px solid;
 }
 
+.searchField {
+  width: 100%;
+}
+
 .space-bottom-medium {
   margin-bottom: 1em;
 }
@@ -65,7 +69,6 @@ input {
 
 div.actions {
   width: 30%;
-  padding: .25em; 
 }
 
 .buttons-container {
@@ -81,12 +84,13 @@ div.actions {
   margin-bottom: 0.5em;
 }
 
-
-
-
-
-
-
+.errors {
+  border-radius: 12px;
+  border: 2px solid;
+  border-color: red;
+  padding: 0.25em;
+  background-color: lightred;
+}
 
 
 

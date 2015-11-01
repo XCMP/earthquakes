@@ -1,4 +1,4 @@
-(function(_events, _utils){
+(function(_events, _utils, _validation){
   
   EQ.Views.ActionsView = Backbone.View.extend({
 
@@ -29,6 +29,8 @@
       this.$maxLongitude = $('.maxLongitude');
       this.$minLatitude = $('.minLatitude');
       this.$maxLatitude = $('.maxLatitude');
+      this.$errorsContainer = $('.error-container');
+      this.$errors = this.$errorsContainer.find('.errors-list');
       this.initQueryData();
     },
 
@@ -48,7 +50,7 @@
         ev.preventDefault();
       }
       this.setCachedData();
-      
+
       if (this.cachedQueryData.coordinatesChanged) {
         _events.bus.trigger(_events.LOCATION_CHANGED, this.cachedQueryData.coordinates);
         this.cachedQueryData.coordinatesChanged = false;
@@ -74,26 +76,42 @@
     setCachedData: function() {
       // coordinates
       var newCoordinates = {
-        'minlongitude': this.$minLongitude.val(),
-        'maxlongitude': this.$maxLongitude.val(),
-        'minlatitude': this.$minLatitude.val(),
-        'maxlatitude': this.$maxLatitude.val()
+        'minlongitude': parseInt(this.$minLongitude.val(), 10),
+        'maxlongitude': parseInt(this.$maxLongitude.val(), 10),
+        'minlatitude': parseInt(this.$minLatitude.val(), 10),
+        'maxlatitude': parseInt(this.$maxLatitude.val(), 10)
       };
-      if (!_.isEqual(this.cachedQueryData.coordinates, newCoordinates)) {
-        this.cachedQueryData.coordinates = newCoordinates;
-        this.cachedQueryData.dataChanged = true;
-        this.cachedQueryData.coordinatesChanged = true;
-      }
+      var errors = _validation.validateCoordinates(newCoordinates, []);
 
       // times
       var newTimes = {
         'starttime' : _utils.formattedIsoDate(this.$startDate.val()),
         'endtime'   : _utils.formattedIsoDate(this.$endDate.val())
       }
-      if (!_.isEqual(this.cachedQueryData.times, newTimes)) {
-        this.cachedQueryData.dataChanged = true;
-        this.cachedQueryData.times = newTimes;
+      errors = _validation.validateTimes(newTimes, errors);
+
+      if (errors.length > 0) {
+        var html = '';
+        this.$errorsContainer.addClass('errors');
+        _.each(errors, function(error) {
+          html = html + '<li>'+error+'</li>';
+        });
+        this.$errors.html(html);
+      } else {
+        this.$errorsContainer.removeClass('errors');
+        this.$errors.html('');
+        if (!_.isEqual(this.cachedQueryData.coordinates, newCoordinates)) {
+          this.cachedQueryData.coordinates = newCoordinates;
+          this.cachedQueryData.dataChanged = true;
+          this.cachedQueryData.coordinatesChanged = true;
+        }
+
+        if (!_.isEqual(this.cachedQueryData.times, newTimes)) {
+          this.cachedQueryData.dataChanged = true;
+          this.cachedQueryData.times = newTimes;
+        }
       }
+
     },
 
     showAllMarkers: function(ev) {
@@ -118,4 +136,4 @@
 
   });
 
-})(EQ.Events, EQ.utils);
+})(EQ.Events, EQ.utils, EQ.validation);
