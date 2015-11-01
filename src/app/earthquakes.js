@@ -40,7 +40,7 @@
       if (searchValue === '') {
         filteredEarthquakes = this;
       } else {
-        filteredEarthquakes = new EQ.EarthQuakes(this.filter(
+        filteredEarthquakes = new EQ.Collections.EarthQuakes(this.filter(
           function(eq) {
             return eq.attributes.properties.title.toLowerCase().indexOf(searchValue.toLowerCase(searchValue)) != -1;
           }
