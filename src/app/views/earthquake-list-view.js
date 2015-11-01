@@ -4,7 +4,7 @@
 
     el: '#eq-list',
 
-    template: Handlebars.templates['earthquakes.hbs'],
+    template: Handlebars.templates['earthquake-list.hbs'],
 
     filteredCollection: null,
 

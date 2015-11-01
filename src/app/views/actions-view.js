@@ -4,7 +4,7 @@
 
     el: '#eq-actions',
     
-    template: Handlebars.templates['earthquakes-actions.hbs'],
+    template: Handlebars.templates['actions.hbs'],
 
     cachedQueryData: {
       dataChanged: false,
