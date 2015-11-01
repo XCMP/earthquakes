@@ -8,7 +8,7 @@ var EQ = {
     // Constant for events
     LOCATION_CHANGED      : 'locationChanged',
     SCROLL_TO_SELECTED_EQ : 'scrollToSelectedEarthquake',
-    search                : 'search',
+    SEARCH                : 'search',
     GET_DATA              : 'getData',
     FILTERED              : 'filtered',
     TOGGLE_MARKER         : 'toggleMarker',
