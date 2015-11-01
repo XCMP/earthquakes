@@ -19,13 +19,13 @@ var paths = {
     ],
     app: [
       'src/app/earthquakes-app.js',
-      'src/app/earthquakes-utils.js',
-      'src/app/earthquakes-validation.js',
-      'src/app/earthquake.js',
-      'src/app/earthquakes.js',
-      'src/app/earthquakes-actions-view.js',
-      'src/app/earthquakes-view.js',
-      'src/app/earthquakes-map-view.js'
+      'src/app/common/earthquakes-utils.js',
+      'src/app/common/earthquakes-validation.js',
+      'src/app/models/earthquake.js',
+      'src/app/collections/earthquakes.js',
+      'src/app/views/earthquakes-actions-view.js',
+      'src/app/views/earthquakes-view.js',
+      'src/app/views/earthquakes-map-view.js'
     ]
   },
   styles: 'src/css/*.css',

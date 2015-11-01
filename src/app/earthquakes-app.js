@@ -5,7 +5,7 @@ var EQ = {
   Views: {},
 
   Events: {
-    // Constant for events
+    // constant for events
     LOCATION_CHANGED      : 'locationChanged',
     SCROLL_TO_SELECTED_EQ : 'scrollToSelectedEarthquake',
     SEARCH                : 'search',
@@ -14,7 +14,7 @@ var EQ = {
     TOGGLE_MARKER         : 'toggleMarker',
     TOGGLE_ALL_MARKERS    : 'toggleAllMarkers',
 
-    // The bus
+    // the event bus
     bus                   : _.extend({}, Backbone.Events)
   }
 };
