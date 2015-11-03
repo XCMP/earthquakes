@@ -15,6 +15,7 @@
     events : {
       'click button.getData'        : 'processRequest',
       'submit'                      : 'processRequest',
+      'blur form input[type=text]'  : 'setCachedData',
       'click button.showAllMarkers' : 'showAllMarkers',
       'click button.hideAllMarkers' : 'hideAllMarkers',
       'click button.reset'          : 'reset',
