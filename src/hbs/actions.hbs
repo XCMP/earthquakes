@@ -1,39 +1,46 @@
-<div class="error-container bottom-m">
+<div class="error-container bottom-m {{#if errors}} errors{{/if}}">
   <ul class="errors-list">
+    {{#each errorMessages}}
+      <li>{{this}}</li>
+    {{/each}}
   </ul>
 </div>
 <div class="parameters-container bottom-m">
   <form id="query">
-    <div class="bottom-m">
-      <label>
-        Start
-        <input id="startDate" type="text" class="startDate text-input" size="10" maxLength="10" placeholder="dd-mm-yyyy"/>
-      </label>
-      <label>
-        End
-        <input type="text" class="endDate date" size="10" maxLength="10" placeholder="dd-mm-yyyy"/>
-      </label>
-    </div>
-    <div class="bottom-m">
-    <label>
-      Longitude min
-      <input type="text" class="minLongitude text-input" size="4" maxLength="4"/>
-    </label>
-    <label>
-      max
-      <input type="text" class="maxLongitude" size="4" maxLength="4" /><br>
-    </label>
-    </div>
-    <div class="bottom-m">
-    <label>
-      Latitude min
-      <input type="text" class="minlatitude" size="3" maxLength="3"/>
-    </label>
-    <label>
-      max
-      <input type="text" class="maxLatitude" size="3" maxLength="3" />
-    </label>
-    </div>
+    {{#with data.times}}
+      <div class="bottom-m">
+        <label>
+          Start
+          <input type="text" value="{{starttimeFormatted}}" class="startDate text-input{{#if ../errorFields.starttime}} error-field{{/if}}" size="10" maxLength="10" placeholder="dd-mm-yyyy"/>
+        </label>
+        <label>
+          End
+          <input type="text" value="{{endtimeFormatted}}" class="endDate date{{#if ../errorFields.endtime}} error-field{{/if}}" size="10" maxLength="10" placeholder="dd-mm-yyyy"/>
+        </label>
+      </div>
+    {{/with}}
+    {{#with data.coordinates}}
+      <div class="bottom-m">
+        <label>
+          Longitude min
+          <input type="text" value="{{minlongitude}}" class="minLongitude text-input{{#if ../errorFields.minlongitude}} error-field{{/if}}" size="4" maxLength="4"/>
+        </label>
+        <label>
+          max
+          <input type="text" value="{{maxlongitude}}" class="maxLongitude{{#if ../errorFields.maxlongitude}} error-field{{/if}}" size="4" maxLength="4" /><br>
+        </label>
+        </div>
+        <div class="bottom-m">
+        <label>
+          Latitude min
+          <input type="text" value="{{minlatitude}}" class="minlatitude{{#if ../errorFields.minlatitude}} error-field{{/if}}" size="3" maxLength="3"/>
+        </label>
+        <label>
+          max
+          <input type="text" value="{{maxlatitude}}" class="maxLatitude {{#if ../errorFields.maxlatitude}} error-field{{/if}}" size="3" maxLength="3" />
+        </label>
+      </div>
+    {{/with}}
     <button class="getData">Get data</button>
   </form>
 </div>

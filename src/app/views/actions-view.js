@@ -77,42 +77,35 @@
     setCachedData: function() {
       // coordinates
       var newCoordinates = {
-        'minlongitude': parseInt(this.$minLongitude.val(), 10),
-        'maxlongitude': parseInt(this.$maxLongitude.val(), 10),
-        'minlatitude': parseInt(this.$minLatitude.val(), 10),
-        'maxlatitude': parseInt(this.$maxLatitude.val(), 10)
+        'minlongitude': parseInt(this.$('.minLongitude').val(), 10),
+        'maxlongitude': parseInt(this.$('.maxLongitude').val(), 10),
+        'minlatitude': parseInt(this.$('.minLatitude').val(), 10),
+        'maxlatitude': parseInt(this.$('.maxLatitude').val(), 10)
       };
-      var errors = _validation.validateCoordinates(newCoordinates, []);
+      var errors = {'messages': [], 'fields': {}};
+      errors = _validation.validateCoordinates(newCoordinates, errors);
 
       // times
       var newTimes = {
-        'starttime' : _utils.formattedIsoDate(this.$startDate.val()),
-        'endtime'   : _utils.formattedIsoDate(this.$endDate.val())
+        'starttimeFormatted' : this.$('.startDate').val(),
+        'starttime' : _utils.formattedIsoDate(this.$('.startDate').val()),
+        'endtimeFormatted'   : this.$('.endDate').val(),
+        'endtime'   : _utils.formattedIsoDate(this.$('.endDate').val())
       }
       errors = _validation.validateTimes(newTimes, errors);
 
-      if (errors.length > 0) {
-        var html = '';
-        this.$errorsContainer.addClass('errors');
-        _.each(errors, function(error) {
-          html = html + '<li>'+error+'</li>';
-        });
-        this.$errors.html(html);
-      } else {
-        this.$errorsContainer.removeClass('errors');
-        this.$errors.html('');
-        if (!_.isEqual(this.cachedQueryData.coordinates, newCoordinates)) {
-          this.cachedQueryData.coordinates = newCoordinates;
-          this.cachedQueryData.dataChanged = true;
-          this.cachedQueryData.coordinatesChanged = true;
-        }
-
-        if (!_.isEqual(this.cachedQueryData.times, newTimes)) {
-          this.cachedQueryData.dataChanged = true;
-          this.cachedQueryData.times = newTimes;
-        }
+      if (!_.isEqual(this.cachedQueryData.coordinates, newCoordinates)) {
+        this.cachedQueryData.coordinates = newCoordinates;
+        this.cachedQueryData.dataChanged = true;
+        this.cachedQueryData.coordinatesChanged = true;
       }
 
+      if (!_.isEqual(this.cachedQueryData.times, newTimes)) {
+        this.cachedQueryData.dataChanged = true;
+        this.cachedQueryData.times = newTimes;
+      }
+
+      this.render(errors);
     },
 
     showAllMarkers: function(ev) {
@@ -131,8 +124,19 @@
       _events.bus.trigger(_events.SEARCH, $(ev.currentTarget).val());
     },
 
-    render: function() {
-      this.$el.html(this.template());
+    render: function(errors) {
+      if (errors && errors.messages.length > 0) {
+        this.$el.html(this.template({
+          errors: true,
+          errorFields: errors.fields,
+          errorMessages: errors.messages,
+          data: this.cachedQueryData
+        }));
+      } else {
+        this.$el.html(this.template({
+          data: this.cachedQueryData
+        }));
+      }
     }
 
   });
