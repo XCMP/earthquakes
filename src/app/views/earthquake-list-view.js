@@ -16,13 +16,13 @@
       _events.bus.on(_events.SCROLL_TO_SELECTED_EQ, this.scrollToSelectedEarthquake, this);
       _events.bus.on(_events.SEARCH, this.search, this);
       _events.bus.on(_events.GET_DATA, this.getData, this);
-
+      
       this.collection.on('sync', this.render, this);
       this.init();
     },
 
     init: function() {
-     this.filteredCollection = this.collection;
+      this.filteredCollection = this.collection;
     },
 
     getData: function(params) {
