@@ -13,7 +13,7 @@ var EQ = {
     FILTERED              : 'filtered',
     TOGGLE_MARKER         : 'toggleMarker',
     TOGGLE_ALL_MARKERS    : 'toggleAllMarkers',
-
+    DRAWING_FINISHED      : 'drawingFinished',
     // the event bus
     bus                   : _.extend({}, Backbone.Events)
   }

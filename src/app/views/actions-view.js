@@ -33,16 +33,26 @@
       this.$errorsContainer = $('.error-container');
       this.$errors = this.$errorsContainer.find('.errors-list');
       this.initQueryData();
+
+      _events.bus.on(_events.DRAWING_FINISHED, this.processDrawing, this);
     },
 
     initQueryData: function() {
       var d = new Date();
       d.setDate(d.getDate()-30);
       this.$startDate.val(_utils.formattedDate(d));
-      this.$minLongitude.val('-25');
-      this.$maxLongitude.val('40');
-      this.$minLatitude.val('35');
-      this.$maxLatitude.val('72');
+      this.$minLongitude.val('0');
+      this.$maxLongitude.val('0');
+      this.$minLatitude.val('0');
+      this.$maxLatitude.val('0');
+      this.processRequest();
+    },
+
+    processDrawing: function(data) {
+      this.$('.minLongitude').val(data.minlongitude);
+      this.$('.maxLongitude').val(data.maxlongitude);
+      this.$('.minLatitude').val(data.minlatitude);
+      this.$('.maxLatitude').val(data.maxlatitude);
       this.processRequest();
     },
 
@@ -77,10 +87,10 @@
     setCachedData: function() {
       // coordinates
       var newCoordinates = {
-        'minlongitude': parseInt(this.$('.minLongitude').val(), 10),
-        'maxlongitude': parseInt(this.$('.maxLongitude').val(), 10),
-        'minlatitude': parseInt(this.$('.minLatitude').val(), 10),
-        'maxlatitude': parseInt(this.$('.maxLatitude').val(), 10)
+        'minlongitude': parseFloat(this.$('.minLongitude').val(), 10),
+        'maxlongitude': parseFloat(this.$('.maxLongitude').val(), 10),
+        'minlatitude': parseFloat(this.$('.minLatitude').val(), 10),
+        'maxlatitude': parseFloat(this.$('.maxLatitude').val(), 10)
       };
       var errors = {'messages': [], 'fields': {}};
       errors = _validation.validateCoordinates(newCoordinates, errors);
