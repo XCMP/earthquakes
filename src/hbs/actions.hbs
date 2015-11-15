@@ -7,6 +7,7 @@
 </div>
 <div class="parameters-container bottom-m">
   <form id="query">
+    <h4>Period</h4>
     {{#with data.times}}
       <div class="bottom-m">
         <label>
@@ -19,28 +20,27 @@
         </label>
       </div>
     {{/with}}
-    {{#with data.coordinates}}
-      <div class="bottom-m">
-        <label>
-          Longitude min
-          <input type="text" value="{{minlongitude}}" class="minLongitude text-input{{#if ../errorFields.minlongitude}} error-field{{/if}}" size="4" maxLength="4"/>
-        </label>
-        <label>
-          max
-          <input type="text" value="{{maxlongitude}}" class="maxLongitude{{#if ../errorFields.maxlongitude}} error-field{{/if}}" size="4" maxLength="4" /><br>
-        </label>
+    <h4>Coordinates</h4>
+    <div>
+      {{#with data.coordinates}}
+        <div class="one-half left bottom-m">
+          <p>Longitude</p>
+          <label>min</label>
+          <input type="text" value="{{minlongitude}}" class="minLongitude text-input{{#if ../errorFields.minlongitude}} error-field{{/if}}" size="20" />
+          <br>
+          <label>max</label>
+          <input type="text" value="{{maxlongitude}}" class="maxLongitude{{#if ../errorFields.maxlongitude}} error-field{{/if}}" size="20" />
         </div>
-        <div class="bottom-m">
-        <label>
-          Latitude min
-          <input type="text" value="{{minlatitude}}" class="minlatitude{{#if ../errorFields.minlatitude}} error-field{{/if}}" size="3" maxLength="3"/>
-        </label>
-        <label>
-          max
-          <input type="text" value="{{maxlatitude}}" class="maxLatitude {{#if ../errorFields.maxlatitude}} error-field{{/if}}" size="3" maxLength="3" />
-        </label>
-      </div>
-    {{/with}}
+        <div class="one-half right bottom-m">
+          <p>Latitude</p>
+          <label>min</label>
+          <input type="text" value="{{minlatitude}}" class="minlatitude{{#if ../errorFields.minlatitude}} error-field{{/if}}" size="20" />
+          <br>
+          <label>max</label>
+          <input type="text" value="{{maxlatitude}}" class="maxLatitude {{#if ../errorFields.maxlatitude}} error-field{{/if}}" size="20" />
+        </div>
+      {{/with}}
+    </div>
     <button class="getData">Get data</button>
   </form>
 </div>

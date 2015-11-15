@@ -3,6 +3,11 @@ body {
   font-size: 18px;
 }
 
+h4, p {
+  margin: 0px;
+  margin-bottom: .25em;
+}
+
 table {
 }
 
@@ -67,6 +72,18 @@ div.actions {
   width: 30%;
 }
 
+div.one-half {
+  width: 50%;
+}
+
+div.left {
+  float: left;
+}
+
+div.right {
+  float: right;
+}
+
 .buttons-container {
   margin-bottom: .25em;
 }
@@ -86,6 +103,10 @@ div.actions {
   border-color: red;
   padding: 0.25em;
   background-color: lightred;
+}
+
+label {
+  margin-right: .5em;
 }
 
 input[type="text"] {
