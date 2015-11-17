@@ -24,6 +24,12 @@
 
     initialize: function() {
       this.render();
+      this.initQueryData();
+
+      _events.bus.on(_events.DRAWING_FINISHED, this.processDrawing, this);
+    },
+
+    cacheElements: function() {
       this.$startDate = $('.startDate');
       this.$endDate = $('.endDate');
       this.$minLongitude = $('.minLongitude');
@@ -32,9 +38,6 @@
       this.$maxLatitude = $('.maxLatitude');
       this.$errorsContainer = $('.error-container');
       this.$errors = this.$errorsContainer.find('.errors-list');
-      this.initQueryData();
-
-      _events.bus.on(_events.DRAWING_FINISHED, this.processDrawing, this);
     },
 
     initQueryData: function() {
@@ -49,10 +52,10 @@
     },
 
     processDrawing: function(data) {
-      this.$('.minLongitude').val(data.minlongitude);
-      this.$('.maxLongitude').val(data.maxlongitude);
-      this.$('.minLatitude').val(data.minlatitude);
-      this.$('.maxLatitude').val(data.maxlatitude);
+      this.$minLongitude.val(data.minlongitude);
+      this.$maxLongitude.val(data.maxlongitude);
+      this.$minLatitude.val(data.minlatitude);
+      this.$maxLatitude.val(data.maxlatitude);
       this.processRequest();
     },
 
@@ -87,20 +90,20 @@
     setCachedData: function() {
       // coordinates
       var newCoordinates = {
-        'minlongitude': parseFloat(this.$('.minLongitude').val(), 10),
-        'maxlongitude': parseFloat(this.$('.maxLongitude').val(), 10),
-        'minlatitude': parseFloat(this.$('.minLatitude').val(), 10),
-        'maxlatitude': parseFloat(this.$('.maxLatitude').val(), 10)
+        'minlongitude': parseFloat(this.$minLongitude.val(), 10),
+        'maxlongitude': parseFloat(this.$maxLongitude.val(), 10),
+        'minlatitude': parseFloat(this.$minLatitude.val(), 10),
+        'maxlatitude': parseFloat(this.$maxLatitude.val(), 10)
       };
       var errors = {'messages': [], 'fields': {}};
       errors = _validation.validateCoordinates(newCoordinates, errors);
 
       // times
       var newTimes = {
-        'starttimeFormatted' : this.$('.startDate').val(),
-        'starttime' : _utils.formattedIsoDate(this.$('.startDate').val()),
-        'endtimeFormatted'   : this.$('.endDate').val(),
-        'endtime'   : _utils.formattedIsoDate(this.$('.endDate').val())
+        'starttimeFormatted' : this.$startDate.val(),
+        'starttime' : _utils.formattedIsoDate(this.$startDate.val()),
+        'endtimeFormatted'   : this.$endDate.val(),
+        'endtime'   : _utils.formattedIsoDate(this.$endDate.val())
       }
       errors = _validation.validateTimes(newTimes, errors);
 
@@ -147,6 +150,8 @@
           data: this.cachedQueryData
         }));
       }
+      this.cacheElements();
+      return this;
     }
 
   });
