@@ -30,13 +30,13 @@
     },
 
     cacheElements: function() {
-      this.$startDate = $('.startDate');
-      this.$endDate = $('.endDate');
-      this.$minLongitude = $('.minLongitude');
-      this.$maxLongitude = $('.maxLongitude');
-      this.$minLatitude = $('.minLatitude');
-      this.$maxLatitude = $('.maxLatitude');
-      this.$errorsContainer = $('.error-container');
+      this.$startDate = this.$('.startDate');
+      this.$endDate = this.$('.endDate');
+      this.$minLongitude = this.$('.minLongitude');
+      this.$maxLongitude = this.$('.maxLongitude');
+      this.$minLatitude = this.$('.minLatitude');
+      this.$maxLatitude = this.$('.maxLatitude');
+      this.$errorsContainer = this.$('.error-container');
       this.$errors = this.$errorsContainer.find('.errors-list');
     },
 
