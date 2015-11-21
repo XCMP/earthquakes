@@ -6,14 +6,14 @@ var EQ = {
 
   Events: {
     // constant for events
-    LOCATION_CHANGED      : 'locationChanged',
-    SCROLL_TO_SELECTED_EQ : 'scrollToSelectedEarthquake',
-    SEARCH                : 'search',
-    GET_DATA              : 'getData',
-    FILTERED              : 'filtered',
-    TOGGLE_MARKER         : 'toggleMarker',
-    TOGGLE_ALL_MARKERS    : 'toggleAllMarkers',
-    DRAWING_FINISHED      : 'drawingFinished',
+    COORDINATES_CHANGED        : 'coordinatesChanged',
+    EQ_SELECTED                : 'earthquakeSelected',
+    SEARCH                     : 'search',
+    FETCH_DATA                 : 'fetchData',
+    FILTERED                   : 'filtered',
+    TOGGLE_MARKER              : 'toggleMarker',
+    TOGGLE_ALL_MARKERS         : 'toggleAllMarkers',
+    DRAWING_RECTANGLE_FINISHED : 'drawingFinished',
     // the event bus
     bus                   : _.extend({}, Backbone.Events)
   }

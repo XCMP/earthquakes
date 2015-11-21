@@ -23,7 +23,7 @@
       _events.bus.on(_events.TOGGLE_MARKER, this.toggleMarker, this);
       _events.bus.on(_events.TOGGLE_ALL_MARKERS, this.toggleAllMarkers, this);
       _events.bus.on(_events.FILTERED, this.setAllMarkers, this);
-      _events.bus.on(_events.LOCATION_CHANGED, this.adjustRectangle, this);
+      _events.bus.on(_events.COORDINATES_CHANGED, this.adjustRectangle, this);
 
       this.initGoogleMap();
     },
@@ -48,10 +48,10 @@
       this.toggleAllMarkers(false);
     },
 
-    scrollToSelectedEarthquakeEvent: function(selectedEqId) {
+    selectedEarthquake: function(selectedEqId) {
       var selectedMarker = this.getSelectedMarker(selectedEqId);
       this.setSelectedMarker(selectedMarker);
-      _events.bus.trigger(_events.SCROLL_TO_SELECTED_EQ, selectedEqId);
+      _events.bus.trigger(_events.EQ_SELECTED, selectedEqId);
     },
 
     clearSelectedMarkers: function() {
@@ -101,7 +101,7 @@
           show: true
         });
         marker.addListener('click', function() {
-          self.scrollToSelectedEarthquakeEvent(marker.id);
+          self.selectedEarthquake(marker.id);
         });
         self.allMarkers.push(marker);
       });
@@ -185,7 +185,7 @@
             'minlatitude': bounds.getSouthWest().lat(),
             'maxlatitude': bounds.getNorthEast().lat()
           };
-          _events.bus.trigger(_events.DRAWING_FINISHED, newCoordinates);
+          _events.bus.trigger(_events.DRAWING_RECTANGLE_FINISHED, newCoordinates);
           self.drawingManager.setDrawingMode(null);
         }
       });

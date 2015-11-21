@@ -13,9 +13,9 @@
      },
 
     initialize: function(){
-      _events.bus.on(_events.SCROLL_TO_SELECTED_EQ, this.scrollToSelectedEarthquake, this);
+      _events.bus.on(_events.EQ_SELECTED, this.scrollToSelectedEarthquake, this);
       _events.bus.on(_events.SEARCH, this.search, this);
-      _events.bus.on(_events.GET_DATA, this.getData, this);
+      _events.bus.on(_events.FETCH_DATA, this.fetchData, this);
       
       this.collection.on('sync', this.render, this);
       this.init();
@@ -25,8 +25,8 @@
       this.filteredCollection = this.collection;
     },
 
-    getData: function(params) {
-      this.$el.html('<h1>LOADING ...</h1>');
+    fetchData: function(params) {
+      this.$el.html('<h1>FETCHING DATA ...</h1>');
       var self = this;
       this.filteredCollection.fetch(params).done(
         function() {

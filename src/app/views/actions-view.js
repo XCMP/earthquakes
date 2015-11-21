@@ -26,7 +26,7 @@
       this.render();
       this.initQueryData();
 
-      _events.bus.on(_events.DRAWING_FINISHED, this.processDrawing, this);
+      _events.bus.on(_events.DRAWING_RECTANGLE_FINISHED, this.processDrawing, this);
     },
 
     cacheElements: function() {
@@ -66,7 +66,7 @@
       this.setCachedData();
 
       if (this.cachedQueryData.coordinatesChanged) {
-        _events.bus.trigger(_events.LOCATION_CHANGED, this.cachedQueryData.coordinates);
+        _events.bus.trigger(_events.COORDINATES_CHANGED, this.cachedQueryData.coordinates);
         this.cachedQueryData.coordinatesChanged = false;
       }
       if (this.cachedQueryData.dataChanged) {
@@ -82,7 +82,7 @@
             'maxlatitude' : c.maxlatitude
           }
         };
-        _events.bus.trigger(_events.GET_DATA, params);
+        _events.bus.trigger(_events.FETCH_DATA, params);
         this.cachedQueryData.dataChanged = false;
       }
     },
