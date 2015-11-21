@@ -104,7 +104,7 @@
         'starttime' : _utils.formattedIsoDate(this.$startDate.val()),
         'endtimeFormatted'   : this.$endDate.val(),
         'endtime'   : _utils.formattedIsoDate(this.$endDate.val())
-      }
+      };
       errors = _validation.validateTimes(newTimes, errors);
 
       if (!_.isEqual(this.cachedQueryData.coordinates, newCoordinates)) {

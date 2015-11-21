@@ -173,7 +173,7 @@
       // adding listener for ready drawing rectangle
       google.maps.event.addListener(this.drawingManager, 'overlaycomplete', function(event) {
         if (event.type == google.maps.drawing.OverlayType.RECTANGLE) {
-          if(self.rectangle != null) {
+          if(self.rectangle !== null) {
             self.rectangle.setMap(null);
           }
           self.rectangle = event.overlay;
