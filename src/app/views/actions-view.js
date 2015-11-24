@@ -8,8 +8,16 @@
 
     cachedQueryData: {
       dataChanged: false,
-      times: {},
-      coordinates: {}
+      times: {
+        'starttimeFormatted' : _utils.getInitStarttime(),
+        'endtimeFormatted'   : ''
+      },
+      coordinates: {
+        'minlongitude': 0,
+        'maxlongitude': 0,
+        'minlatitude' : 0,
+        'maxlatitude' : 0
+      }
     },
 
     events : {
@@ -24,7 +32,7 @@
 
     initialize: function() {
       this.render();
-      this.initQueryData();
+      this.processRequest();
 
       _events.bus.on(_events.DRAWING_RECTANGLE_FINISHED, this.processDrawing, this);
     },
@@ -40,17 +48,6 @@
       this.$errors = this.$errorsContainer.find('.errors-list');
     },
 
-    initQueryData: function() {
-      var d = new Date();
-      d.setDate(d.getDate()-30);
-      this.$startDate.val(_utils.formattedDate(d));
-      this.$minLongitude.val('0');
-      this.$maxLongitude.val('0');
-      this.$minLatitude.val('0');
-      this.$maxLatitude.val('0');
-      this.processRequest();
-    },
-
     processDrawing: function(data) {
       this.$minLongitude.val(data.minlongitude);
       this.$maxLongitude.val(data.maxlongitude);
@@ -63,62 +60,70 @@
       if (ev) {
         ev.preventDefault();
       }
-      this.setCachedData();
 
-      if (this.cachedQueryData.coordinatesChanged) {
-        _events.bus.trigger(_events.COORDINATES_CHANGED, this.cachedQueryData.coordinates);
-        this.cachedQueryData.coordinatesChanged = false;
-      }
-      if (this.cachedQueryData.dataChanged) {
-        var c = this.cachedQueryData.coordinates, t = this.cachedQueryData.times;
-        var params = {
-          reset: true,
-          data: {
-            'starttime'   : t.starttime,
-            'endtime'     : t.endtime,
-            'minlongitude': c.minlongitude,
-            'maxlongitude': c.maxlongitude,
-            'minlatitude' : c.minlatitude,
-            'maxlatitude' : c.maxlatitude
-          }
-        };
-        _events.bus.trigger(_events.FETCH_DATA, params);
-        this.cachedQueryData.dataChanged = false;
+      this.setCachedData();
+      if (this.validateData()) {
+
+        if (this.cachedQueryData.coordinatesChanged) {
+          _events.bus.trigger(_events.COORDINATES_CHANGED, this.cachedQueryData.coordinates);
+          this.cachedQueryData.coordinatesChanged = false;
+        }
+        if (this.cachedQueryData.dataChanged) {
+          var c = this.cachedQueryData.coordinates, t = this.cachedQueryData.times;
+          var params = {
+            reset: true,
+            data: {
+              'starttime'   : t.starttime,
+              'endtime'     : t.endtime,
+              'minlongitude': c.minlongitude,
+              'maxlongitude': c.maxlongitude,
+              'minlatitude' : c.minlatitude,
+              'maxlatitude' : c.maxlatitude
+            }
+          };
+          _events.bus.trigger(_events.FETCH_DATA, params);
+          this.cachedQueryData.dataChanged = false;
+        }
       }
     },
 
     setCachedData: function() {
       // coordinates
       var newCoordinates = {
-        'minlongitude': parseFloat(this.$minLongitude.val(), 10),
-        'maxlongitude': parseFloat(this.$maxLongitude.val(), 10),
-        'minlatitude': parseFloat(this.$minLatitude.val(), 10),
-        'maxlatitude': parseFloat(this.$maxLatitude.val(), 10)
+        'minlongitude' : parseFloat(this.$minLongitude.val(), 10),
+        'maxlongitude' : parseFloat(this.$maxLongitude.val(), 10),
+        'minlatitude'  : parseFloat(this.$minLatitude.val(), 10),
+        'maxlatitude'  : parseFloat(this.$maxLatitude.val(), 10)
       };
-      var errors = {'messages': [], 'fields': {}};
-      errors = _validation.validateCoordinates(newCoordinates, errors);
-
-      // times
-      var newTimes = {
-        'starttimeFormatted' : this.$startDate.val(),
-        'starttime' : _utils.formattedIsoDate(this.$startDate.val()),
-        'endtimeFormatted'   : this.$endDate.val(),
-        'endtime'   : _utils.formattedIsoDate(this.$endDate.val())
-      };
-      errors = _validation.validateTimes(newTimes, errors);
-
       if (!_.isEqual(this.cachedQueryData.coordinates, newCoordinates)) {
         this.cachedQueryData.coordinates = newCoordinates;
         this.cachedQueryData.dataChanged = true;
         this.cachedQueryData.coordinatesChanged = true;
       }
 
+      // times
+      var newTimes = {
+        'starttimeFormatted' : this.$startDate.val(),
+        'starttime'          : _utils.formattedIsoDate(this.$startDate.val()),
+        'endtimeFormatted'   : this.$endDate.val(),
+        'endtime'            : _utils.formattedIsoDate(this.$endDate.val())
+      };
       if (!_.isEqual(this.cachedQueryData.times, newTimes)) {
         this.cachedQueryData.dataChanged = true;
         this.cachedQueryData.times = newTimes;
       }
 
+    },
+
+    validateData: function() {
+      var errors = {'messages': [], 'fields': {}};
+
+      errors = _validation.validateCoordinates(this.cachedQueryData.coordinates, errors);
+      errors = _validation.validateTimes(this.cachedQueryData.times, errors);
+
       this.render(errors);
+
+      return errors.messages.length == 0;
     },
 
     showAllMarkers: function(ev) {
