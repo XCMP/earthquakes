@@ -26,7 +26,7 @@
     },
 
     fetchData: function(params) {
-      this.$el.html('<h1>FETCHING DATA ...</h1>');
+      this.$el.html('<img src="images/loading.gif"/>');
       var self = this;
       this.filteredCollection.fetch(params).done(
         function() {
