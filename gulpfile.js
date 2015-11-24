@@ -29,7 +29,8 @@ var paths = {
     ]
   },
   styles: 'src/css/*.css',
-  templates: 'src/hbs/*.hbs'
+  templates: 'src/hbs/*.hbs',
+  images: 'src/images/*.*'
 };
 
 // TASKS
@@ -52,7 +53,7 @@ gulp.task('scripts-libs', function() {
 
 gulp.task('scripts-app', function() {
   return gulp.src(paths.scripts.app)
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(concat('earthquakes-app.min.js'))
     .pipe(gulp.dest('dist/js'))
     .pipe(livereload());
@@ -62,6 +63,12 @@ gulp.task('styles', function() {
   return gulp.src(paths.styles)
     .pipe(concat('earthquakes-app.css'))
     .pipe(gulp.dest('dist/css'))
+    .pipe(livereload());
+});
+
+gulp.task('images', function() {
+  return gulp.src(paths.images)
+    .pipe(gulp.dest('dist/images'))
     .pipe(livereload());
 });
 
@@ -76,7 +83,7 @@ gulp.task('templates', function() {
     .pipe(livereload());
 });
 
-gulp.task('build', ['clean', 'base', 'scripts-libs', 'scripts-app', 'styles', 'templates'], function() {
+gulp.task('build', ['clean', 'base', 'scripts-libs', 'scripts-app', 'styles', 'images', 'templates'], function() {
   console.log('Build done.')
 });
 
@@ -87,6 +94,7 @@ gulp.task('watch', ['build'], function() {
   gulp.watch(['index.html'], ['base']);
   gulp.watch(paths.styles, ['styles']);
   gulp.watch(paths.templates, ['templates']);
+  gulp.watch(paths.images, ['images']);
 });
 
 // DEFAULT TASK
