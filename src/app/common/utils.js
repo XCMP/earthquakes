@@ -12,6 +12,12 @@ EQ.utils = {
     }
   },
 
+  getInitStarttime: function() {
+    var d = new Date();
+    d.setDate(d.getDate() - 30);
+    return this.formattedDate(d);
+  },
+
   timezoneOffset: function() {
     var timezoneOffsetInMinutes = new Date().getTimezoneOffset();
     var sign = timezoneOffsetInMinutes > 0 ? '-' : '+';
