@@ -88,11 +88,8 @@
           this.cachedQueryData.dataChanged = false;
         }
 
-      } else {
-        
-        this.render();
-
       }
+      this.render();
     },
 
     setCachedData: function() {
