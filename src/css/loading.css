@@ -1,0 +1,8 @@
+.loading {
+  text-align: center;
+  padding-top: 1em;
+}
+
+.loading img {
+  width: 10em;
+}
