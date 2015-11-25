@@ -26,7 +26,7 @@
     },
 
     fetchData: function(params) {
-      this.$el.html('<img src="images/loading.gif"/>');
+      this.renderLoading();
       var self = this;
       this.filteredCollection.fetch(params).done(
         function() {
@@ -60,6 +60,13 @@
 
     clearSelected: function() {
       $('#eq-list>div').removeClass('eq-selected');
+    },
+
+    renderLoading: function() {
+      this.$el.html(this.template({
+        loading: true
+      }));
+      return this;
     },
 
     render: function() {

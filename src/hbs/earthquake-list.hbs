@@ -1,26 +1,32 @@
-number of earthquakes {{filtered}}/{{total}}
-{{#each earthquakes}}
-  <div id="{{id}}" class="earthquake-data space-bottom-medium">
-    <span>
-      {{#with properties}}
-        <h3>{{title}}</h3>
-        <h4>[{{../id}}]</h4>
-        <table>
-          <tr><td>Date / time</td><td>{{time}}</td></tr>
-          <tr><td>Mangitude</td><td>{{mag}}</td></tr>
-          <tr><td>Place</td><td>{{place}}</td></tr>
-          <tr><td>Location</td><td>
-            {{#with ../geometry}}
-              longitude: {{coordinates.[0]}}<br />
-              latitude: {{coordinates.[1]}}<br />
-              depth: {{coordinates.[2]}}<br />
-            {{/with}}
-          </td></tr>
-          <tr><td></td><td>
-            <button class="toggleMarker" data-eq-id="{{../id}}">Show on map</button>
-          </td></tr>
-        </table>
-      {{/with}}
-    </span>
+{{#if loading}}
+  <div class="loading">
+    <img src="images/loading.gif"/>
   </div>
-{{/each}}
+{{else}}
+  number of earthquakes {{filtered}}/{{total}}
+  {{#each earthquakes}}
+    <div id="{{id}}" class="earthquake-data space-bottom-medium">
+      <span>
+        {{#with properties}}
+          <h3>{{title}}</h3>
+          <h4>[{{../id}}]</h4>
+          <table>
+            <tr><td>Date / time</td><td>{{time}}</td></tr>
+            <tr><td>Mangitude</td><td>{{mag}}</td></tr>
+            <tr><td>Place</td><td>{{place}}</td></tr>
+            <tr><td>Location</td><td>
+              {{#with ../geometry}}
+                longitude: {{coordinates.[0]}}<br />
+                latitude: {{coordinates.[1]}}<br />
+                depth: {{coordinates.[2]}}<br />
+              {{/with}}
+            </td></tr>
+            <tr><td></td><td>
+              <button class="toggleMarker" data-eq-id="{{../id}}">Show on map</button>
+            </td></tr>
+          </table>
+        {{/with}}
+      </span>
+    </div>
+  {{/each}}
+{{/if}}
