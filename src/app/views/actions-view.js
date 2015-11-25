@@ -5,6 +5,7 @@
     el: '#eq-actions',
     
     template: Handlebars.templates['actions.hbs'],
+    errors: {'messages': [], 'fields': {}},
 
     cachedQueryData: {
       dataChanged: false,
@@ -62,7 +63,9 @@
       }
 
       this.setCachedData();
-      if (this.validateData()) {
+      this.validateData();
+
+      if (!this.hasErrors()) {
 
         if (this.cachedQueryData.coordinatesChanged) {
           _events.bus.trigger(_events.COORDINATES_CHANGED, this.cachedQueryData.coordinates);
@@ -84,6 +87,11 @@
           _events.bus.trigger(_events.FETCH_DATA, params);
           this.cachedQueryData.dataChanged = false;
         }
+
+      } else {
+        
+        this.render();
+
       }
     },
 
@@ -116,14 +124,15 @@
     },
 
     validateData: function() {
-      var errors = {'messages': [], 'fields': {}};
+      this.errors = {'messages': [], 'fields': {}};
 
-      errors = _validation.validateCoordinates(this.cachedQueryData.coordinates, errors);
-      errors = _validation.validateTimes(this.cachedQueryData.times, errors);
+      this.errors = _validation.validateCoordinates(this.cachedQueryData.coordinates, this.errors);
+      this.errors = _validation.validateTimes(this.cachedQueryData.times, this.errors);
 
-      this.render(errors);
+    },
 
-      return errors.messages.length == 0;
+    hasErrors: function() {
+      return this.errors && this.errors.messages.length > 0;
     },
 
     showAllMarkers: function(ev) {
@@ -142,12 +151,12 @@
       _events.bus.trigger(_events.SEARCH, $(ev.currentTarget).val());
     },
 
-    render: function(errors) {
-      if (errors && errors.messages.length > 0) {
+    render: function() {
+      if (this.hasErrors()) {
         this.$el.html(this.template({
           errors: true,
-          errorFields: errors.fields,
-          errorMessages: errors.messages,
+          errorFields: this.errors.fields,
+          errorMessages: this.errors.messages,
           data: this.cachedQueryData
         }));
       } else {
