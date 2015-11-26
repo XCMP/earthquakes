@@ -1,0 +1,90 @@
+div.actions {
+  width: 30%;
+}
+
+div.one-half {
+  width: 50%;
+}
+
+div.left {
+  float: left;
+}
+
+div.right {
+  float: right;
+}
+
+form {
+  margin-bottom: 0px;
+}
+
+label {
+  margin-right: .5em;
+}
+
+.buttons-container {
+  margin-bottom: .25em;
+}
+
+button {
+  height: 3em;
+  color: white;
+  background-color: blue;
+  border-radius: 12px;
+  border: 0px;
+}
+
+input[type="text"] {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-radius: none;
+  -moz-border-radius: none;
+  -ms-border-radius: none;
+  -o-border-radius: none;
+  border-radius: 15px;
+  text-align: right;
+  padding: 5px;
+}
+input[type="text"]:focus {
+  outline: none;
+}
+.text-input input[type="text"] {
+  padding: 10px;
+  border: solid 1px gainsboro;
+  -webkit-transition: box-shadow 0.3s, border 0.3s;
+  -moz-transition: box-shadow 0.3s, border 0.3s;
+  -o-transition: box-shadow 0.3s, border 0.3s;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+.text-input input[type="text"]:focus, .text-input input[type="text"].focus {
+  border: solid 1px #707070;
+  -webkit-box-shadow: 0 0 5px 1px #969696;
+  -moz-box-shadow: 0 0 5px 1px #969696;
+  box-shadow: 0 0 5px 1px #969696;
+}
+
+
+.searchField {
+  width: 100%;
+  text-align: left;
+}
+
+.errors {
+  border-radius: 12px;
+  border: 2px solid;
+  border-color: red;
+  padding: 0.25em;
+  background-color: lightred;
+}
+
+.error-field {
+  border-color: red;
+  border-width: 2px;
+}

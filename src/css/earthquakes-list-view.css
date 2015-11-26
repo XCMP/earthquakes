@@ -1,0 +1,19 @@
+.earthquakes {
+  width: 30%;
+  float: left;
+}
+
+.earthquake-data {
+  border: 1px solid;
+  border-radius: 12px;
+  padding: .25em; 
+  padding-left: .75em;
+}
+
+.eq-selected {
+  background-color: lightgrey;
+}
+
+.space-bottom-medium {
+  margin-bottom: .25em;
+}
