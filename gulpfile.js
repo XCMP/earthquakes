@@ -6,6 +6,8 @@ var gulp       = require('gulp'),
     handlebars = require('gulp-handlebars'),
     livereload = require('gulp-livereload'),
     shell      = require('gulp-shell'),
+    war        = require('gulp-war'),
+    zip        = require('gulp-zip'),
     del        = require('del');
 
 // CONSTANTS
@@ -36,6 +38,10 @@ var paths = {
 // TASKS
 gulp.task('clean', function() {
   del(['dist']);
+});
+
+gulp.task('clean-war', function() {
+  del(['war']);
 });
 
 gulp.task('base', function() {
@@ -82,6 +88,16 @@ gulp.task('templates', function() {
     ]))
     .pipe(livereload());
 });
+
+gulp.task('war', ['build', 'clean-war'], function () {
+    gulp.src(['dist/**/*.*'])
+        .pipe(war({
+            welcome: 'index.html',
+            displayName: 'earthquakes',
+        }))
+        .pipe(zip('earthquakes.war'))
+        .pipe(gulp.dest("war"));
+ });
 
 gulp.task('build', ['clean', 'base', 'scripts-libs', 'scripts-app', 'styles', 'images', 'templates'], function() {
   console.log('Build done.')
