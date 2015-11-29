@@ -59,7 +59,7 @@ gulp.task('scripts-libs', function() {
 
 gulp.task('scripts-app', function() {
   return gulp.src(paths.scripts.app)
-    //.pipe(uglify())
+    .pipe(uglify())
     .pipe(concat('earthquakes-app.min.js'))
     .pipe(gulp.dest('dist/js'))
     .pipe(livereload());
