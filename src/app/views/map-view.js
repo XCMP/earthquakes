@@ -105,6 +105,7 @@
         });
         self.allMarkers.push(marker);
       });
+      this.toggleAllMarkers(true);
     },
 
     adjustRectangle: function(locationCoordinates) {
